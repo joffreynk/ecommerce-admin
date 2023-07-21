@@ -12,20 +12,26 @@ interface ModalProps {
 
 export const Modal: React.FC<ModalProps> = ({isOpen, description, title, onClose, children}) =>{
 
+  const onChange = () => {
+    if(!isOpen) {
+      onClose();
+    }
+  }
+
   return (
     <>
       <div className="fixed inset-0 flex items-center justify-center">
         <button
           type="button"
-          onClick={openModal}
+          onClick={onChange}
           className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
         >
-          Open dialog
+          {title}
         </button>
       </div>
 
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+        <Dialog as="div" className="relative z-10" onClose={onChange}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -51,10 +57,21 @@ export const Modal: React.FC<ModalProps> = ({isOpen, description, title, onClose
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
-                    as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
+                    as="div"
+                    className="text-lg font-medium leading-6 text-gray-900 flex justify-between"
                   >
-                    Payment successful
+                    <h4>
+                    {title}
+                    </h4>
+                    <div className="mt-4">
+                    <button
+                      type="button"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      onClick={onChange}
+                    >
+                      x
+                    </button>
+                  </div>
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
@@ -63,15 +80,7 @@ export const Modal: React.FC<ModalProps> = ({isOpen, description, title, onClose
                     </p>
                   </div>
 
-                  <div className="mt-4">
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={closeModal}
-                    >
-                      Got it, thanks!
-                    </button>
-                  </div>
+                  
                 </Dialog.Panel>
               </Transition.Child>
             </div>
