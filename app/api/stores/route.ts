@@ -27,7 +27,8 @@ export const POST = async(req: Request,) => {
 
     
 
-  } catch (error) {
-    
+  } catch (error: any) {
+    console.log('[CREATE STORE ERROR]', error)
+    return new NextResponse(error.message, {status: 500})
   }
 }
