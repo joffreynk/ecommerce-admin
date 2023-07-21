@@ -25,7 +25,7 @@ export const Modal: React.FC<ModalProps> = ({
   };
 
   return (
-    <div className="w-full h-full bg-white opacity-60 ">
+    <div className="w-full h-full bg-white opacity-60">
 
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={close}>

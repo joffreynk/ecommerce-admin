@@ -8,14 +8,20 @@ import { useStoreModal } from "@/hooks/useStoreModal";
 import { Modal } from "@/components/ui/madal";
 import { log } from "console";
 
-const formSchema = z.object({
-  name: z.string().min(1),
-}).required();
+const formSchema = z
+  .object({
+    name: z.string().min(2),
+  })
+  .required();
 
 const StoreModal = () => {
   const storeModal = useStoreModal();
 
-  const { register, handleSubmit } = useForm<z.infer<typeof formSchema>>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
@@ -35,19 +41,37 @@ const StoreModal = () => {
       isOpen={storeModal.isOpen}
       onClose={storeModal.onClose}
     >
-      <div>
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col px-2 gap-6 py-4" >
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col px-2 gap-6 py-4"
+      >
+        <div className="w-full flex flex-col gap-1">
           <input
             {...register("name")}
             placeholder="E-commerce"
-            className="border p-2 text-lg rounded-md outline-none "
+            className="border p-2 text-lg rounded-md outline-none w-full "
           />
-          <div className="flex justify-end items-center gap-5 text-xl">
-            <button  >cancel</button>
-            <button type="submit">continue</button>
-          </div>
-        </form>
-      </div>
+          {errors.name && (
+            <p className="text-orange-300 " role="alert">
+              Store name must be at least 2 characters
+            </p>
+          )}
+        </div>
+        <div className="flex justify-end items-center gap-5 text-lg">
+          <button
+            className="bg-yellow-900 bg-opacity-40 hover:bg-yellow-600 rounded-xl px-4 py-2 text-white"
+            onClick={storeModal.onClose}
+          >
+            cancel
+          </button>
+          <button
+            className="bg-slate-600 rounded-xl px-4 py-2 hover:bg-green-900 text-white"
+            type="submit"
+          >
+            continue
+          </button>
+        </div>
+      </form>
     </Modal>
   );
 };
