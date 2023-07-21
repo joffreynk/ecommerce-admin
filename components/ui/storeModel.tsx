@@ -12,7 +12,7 @@ interface ModalProps {
 }
 
 
-export const Modal: React.FC<ModalProps> = ({isOpen, description, title, onClose, children}) =>{
+export const StoreModel: React.FC<ModalProps> = ({isOpen, description, title, onClose, children}) =>{
 
   const onChange = () => {
     if(!isOpen) {
