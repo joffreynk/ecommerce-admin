@@ -3,6 +3,8 @@
 import { useStoreModal } from "@/hooks/useStoreModal";
 import { Modal } from "@/components/ui/madal";
 
+import {zodResolver} from '@hookform/resolvers/zod'
+
 const StoreModal = () => {
   const storeModal = useStoreModal();
   return (<Modal
