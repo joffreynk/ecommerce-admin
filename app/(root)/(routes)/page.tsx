@@ -12,10 +12,5 @@ export default function Home() {
     }
   }, [isOpen , onOpen])
   
-  return (
-    <main >
-      <h1>Hello admin</h1>
-    
-    </main>
-  )
+  return null;
 }
