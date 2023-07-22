@@ -6,8 +6,7 @@ import * as z from "zod";
 import toast from 'react-hot-toast';
 
 import { useStoreModal } from "@/hooks/useStoreModal";
-import { Modal } from "@/components/ui/madal";
-import { log } from "console";
+import { Modal } from "@/components/reusableComponents/madal";
 import { useState } from "react";
 
 const formSchema = z
@@ -44,6 +43,7 @@ const StoreModal = () => {
 
       const data = await response.json()
       toast.success(`created ${values.name} store successfully `)
+      window.location.assign(`${data.id}`)
     } catch (error) {
       console.log(`failed to create ${values.name} store`);
       toast.error(`failed to create ${values.name} store`);

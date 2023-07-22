@@ -2,7 +2,8 @@ import { auth } from "@clerk/nextjs"
 import React from "react"
 import {redirect}  from 'next/navigation'
 import prismadb from "@/utils/prismadb";
-import { log } from "console";
+
+import NavBarComponent from "@/components/ui/navBarComponent";
 
 export default async function NavBar({children, params}: {children: React.ReactNode, params: {storeId: any}}) {
   const {userId} = auth();
@@ -16,7 +17,7 @@ export default async function NavBar({children, params}: {children: React.ReactN
 
   return (
     <>
-      <h4>This will be nav bar</h4>
+      <NavBarComponent />
       {
         children
       }
