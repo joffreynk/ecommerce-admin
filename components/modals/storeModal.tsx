@@ -45,8 +45,8 @@ const StoreModal = () => {
       const data = await response.json()
       toast.success(`created ${values.name} store successfully `)
     } catch (error) {
-      console.log(`failed to create ${values.name} store successfully `);
-      toast.error(`failed to create ${values.name} store successfully `);
+      console.log(`failed to create ${values.name} store`);
+      toast.error(`failed to create ${values.name} store`);
       
     }finally {
       setLoading(false)
