@@ -16,7 +16,7 @@ export default async function NavBar({children, params}: {children: React.ReactN
 
   return (
     <>
-      <h4>This will be av bar</h4>
+      <h4>This will be nav bar</h4>
       {
         children
       }
