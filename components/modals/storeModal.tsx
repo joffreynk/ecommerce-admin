@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import toast from 'react-hot-toast';
 
 import { useStoreModal } from "@/hooks/useStoreModal";
 import { Modal } from "@/components/ui/madal";
@@ -42,9 +43,10 @@ const StoreModal = () => {
       })
 
       const data = await response.json()
-      
+      toast.success(`created ${values.name} store successfully `)
     } catch (error) {
-      console.log(error);
+      console.log(`failed to create ${values.name} store successfully `);
+      toast.error(`failed to create ${values.name} store successfully `);
       
     }finally {
       setLoading(false)
