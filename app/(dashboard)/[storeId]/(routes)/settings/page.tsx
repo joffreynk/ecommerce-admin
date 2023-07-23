@@ -13,7 +13,7 @@ const StoreSettingsPage: React.FC<settingsPage> = async({params} ) => {
   return (
     <div className='flex-col'>
         <div className='flex-1 space-x-4 py-8 pt-6'>
-            <SettingsPageForm />
+        <SettingsPageForm initialData={store} />
         </div>
     </div>
   )

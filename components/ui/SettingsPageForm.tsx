@@ -1,8 +1,25 @@
+'use client'
+
 import React from "react";
 import Heading from "./Heading";
 import { store } from "@prisma/client";
+import * as z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-const SettingsPageForm = (initialData: store) => {
+const formSchema = z.object({
+  name: z.string().min(2),
+})
+
+type SettingsFormValues = z.infer<typeof formSchema>;
+
+const SettingsPageForm = ({initialData}: {initialData: store}) => {
+
+  const form = useForm<SettingsFormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: initialData
+  });
+
   return (
     <>
       <div className="flex items-center justify-between">
@@ -24,7 +41,7 @@ const SettingsPageForm = (initialData: store) => {
           </svg>
         </button>
       </div>
-      <div className="h-[2px] w-full bg-slate-200" />
+      <div className="h-[2px] my-2 w-full bg-white" />
     </>
   );
 };
