@@ -1,17 +1,22 @@
 import { auth } from "@clerk/nextjs";
+import { useParams } from "next/navigation";
 import { NextResponse } from "next/server";
 
-export const PATCH = async (req: Request) => {
+export const PATCH = async (req: Request, params: {storeId: string}) => {
   try {
     const { userId } = auth();
-    if (!userId)
+    if (!userId){
       return new NextResponse("Unauthorize request", { status: 401 });
+    }
 
     const { name } = await req.json();
-    if (!name)
+    if (!name){
       return new NextResponse("name must be provided", { status: 400 });
+    }
 
-    
+    if(!params.storeId){
+      return new NextResponse("No data to update is given", { status: 400 });
+    }
   } catch (error: any) {
     console.log('[UPDATE STORE ERROR]', error)
     return new NextResponse(error.message, {status: 500})
