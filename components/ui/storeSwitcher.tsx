@@ -23,7 +23,6 @@ export default function StoreSwitcher({
   className: React.HTMLAttributes<HTMLElement>;
   items: store[];
 }) {
-  const [selected, setSelected] = useState(people[0]);
   const [query, setQuery] = useState("");
 
   const [open, setOpen] = useState(false);
@@ -41,14 +40,14 @@ export default function StoreSwitcher({
 
   const onSelectedStore = (store: { value: String; label: String }) => {
     setOpen(false);
-    router.push(`${store.value}`);
+    router.push(`/${store.value}`);
   };
 
-  const filteredPeople =
+  const filteredItems =
     query === ""
-      ? people
-      : people.filter((person) =>
-          person.name
+      ? formattedItems
+      : formattedItems.filter((item) =>
+          item.label
             .toLowerCase()
             .replace(/\s+/g, "")
             .includes(query.toLowerCase().replace(/\s+/g, ""))
@@ -79,7 +78,7 @@ export default function StoreSwitcher({
             className="w-fit wrap border-none py-2 pl-8 pr-10 text-sm leading-5 text-gray-900 focus:ring-0 outline-none "
             aria-hidden="true"
           >
-            {selected.name}
+            {currentStore?.label}
           </Combobox.Button>
           <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
             <ChevronUpDownIcon
@@ -116,17 +115,17 @@ export default function StoreSwitcher({
               </Combobox.Button>
               <Combobox.Input
                 className="w-full border-none py-2 pl-2 pr-2 text-sm leading-5 text-gray-900 focus:ring-0 outline-none "
-                displayValue={(person: any) => person.name}
+                displayValue={(item: any) => item.label}
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="search store......."
               />
             </div>
-            {formattedItems.length === 0 && query !== "" ? (
+            {filteredItems.length === 0 && query !== "" ? (
               <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
                 <h3> Nothing found.</h3>
               </div>
             ) : (
-              formattedItems.map((store) => (
+              filteredItems.map((store) => (
                 <Combobox.Option
                   key={store.value}
                   className={({ active }) =>
@@ -135,7 +134,7 @@ export default function StoreSwitcher({
                     }`
                   }
                   value={store}
-                  onSelect={() => onSelectedStore(store)}
+                  onClick={() => onSelectedStore(store)}
                 >
                   {({ selected, active }) => (
                     <>
