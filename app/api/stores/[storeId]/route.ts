@@ -2,7 +2,7 @@ import prismadb from "@/utils/prismadb";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
-export const PATCH = async (req: Request, params: {storeId: string}) => {
+export const PATCH = async (req: Request, {params}: any) => {
   try {
     const { userId } = auth();
     if (!userId){
@@ -31,7 +31,7 @@ export const PATCH = async (req: Request, params: {storeId: string}) => {
     return new NextResponse(JSON.stringify(store), { status: 200});
   } catch (error: any) {
     console.log('[UPDATE STORE ERROR]', error)
-    return new NextResponse(error.message, {status: 500})
+    return new NextResponse('updating store internal Error', {status: 500})
   }
 };
 
@@ -42,10 +42,14 @@ export const DELETE = async (req: Request, params: {storeId: string}) => {
     if (!userId){
       return new NextResponse("Unauthorize request", { status: 401 });
     }
-
+    console.log('====================================');
+    console.log(params);
+    console.log('====================================');
     if(!params.storeId){
       return new NextResponse("No data to update is given", { status: 400 });
     }
+
+
 
     const store = await prismadb.store.delete({
       where: {
