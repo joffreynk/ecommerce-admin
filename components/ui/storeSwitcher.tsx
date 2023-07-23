@@ -7,22 +7,7 @@ import { store } from "@prisma/client";
 import { useStoreModal } from "@/hooks/useStoreModal";
 import { useParams, useRouter } from "next/navigation";
 
-const people = [
-  { id: 1, name: "Wade Cooper" },
-  { id: 2, name: "Arlene Mccoy" },
-  { id: 3, name: "Devon Webb" },
-  { id: 4, name: "Tom Cook" },
-  { id: 5, name: "Tanya Fox" },
-  { id: 6, name: "Hellen Schmidt" },
-];
-
-export default function StoreSwitcher({
-  className,
-  items = [],
-}: {
-  className: React.HTMLAttributes<HTMLElement>;
-  items: store[];
-}) {
+export default function StoreSwitcher({ items = [] }: { items: store[] }) {
   const [query, setQuery] = useState("");
 
   const [open, setOpen] = useState(false);
