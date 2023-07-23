@@ -24,7 +24,7 @@ const MainNav = ({className, ...props}: React.HTMLAttributes<HTMLElement>) => {
       >
         {route.label}
       </Link>
-    ))};
+    ))}
   </nav>);
 };
 
