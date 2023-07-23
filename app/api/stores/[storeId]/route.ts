@@ -1,5 +1,5 @@
+import prismadb from "@/utils/prismadb";
 import { auth } from "@clerk/nextjs";
-import { useParams } from "next/navigation";
 import { NextResponse } from "next/server";
 
 export const PATCH = async (req: Request, params: {storeId: string}) => {
@@ -17,6 +17,18 @@ export const PATCH = async (req: Request, params: {storeId: string}) => {
     if(!params.storeId){
       return new NextResponse("No data to update is given", { status: 400 });
     }
+
+    const store = await prismadb.store.updateMany({
+      where: {
+        id: params.storeId,
+        userId
+      },
+      data: {
+        name
+      }
+    })
+
+    return new NextResponse(JSON.stringify(store), { status: 200});
   } catch (error: any) {
     console.log('[UPDATE STORE ERROR]', error)
     return new NextResponse(error.message, {status: 500})
