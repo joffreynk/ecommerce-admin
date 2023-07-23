@@ -34,3 +34,29 @@ export const PATCH = async (req: Request, params: {storeId: string}) => {
     return new NextResponse(error.message, {status: 500})
   }
 };
+
+
+export const DELETE = async (req: Request, params: {storeId: string}) => {
+  try {
+    const { userId } = auth();
+    if (!userId){
+      return new NextResponse("Unauthorize request", { status: 401 });
+    }
+
+    if(!params.storeId){
+      return new NextResponse("No data to update is given", { status: 400 });
+    }
+
+    const store = await prismadb.store.delete({
+      where: {
+        id: params.storeId,
+        userId
+      }
+    })
+
+    return new NextResponse(JSON.stringify(store), { status: 200});
+  } catch (error: any) {
+    console.log('[DELETE STORE ERROR]', error)
+    return new NextResponse(error.message, {status: 500})
+  }
+};
