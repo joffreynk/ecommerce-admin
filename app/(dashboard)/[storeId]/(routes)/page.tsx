@@ -1,8 +1,9 @@
 import prismadb from '@/utils/prismadb'
+import { getStore } from '@/utils/protectuser'
 import React from 'react'
 
 const Dashboard = async({params}: any) => {
-  const store = await prismadb.store.findFirst({where:{id: params.storeId}})
+  const store = await getStore(params.storeId)
   return (
     <div>
       <h1>Dashboard</h1>

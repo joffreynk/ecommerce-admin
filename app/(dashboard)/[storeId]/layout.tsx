@@ -1,17 +1,13 @@
 import { auth } from "@clerk/nextjs"
 import React from "react"
 import {redirect}  from 'next/navigation'
-import prismadb from "@/utils/prismadb";
 
 import NavBarComponent from "@/components/ui/navBarComponent";
+import { getStore } from "@/utils/protectuser";
 
 export default async function NavBar({children, params}: {children: React.ReactNode, params: {storeId: any}}) {
-  const {userId} = auth();
 
-  if(!userId) redirect('/sign-in')
-
-  const store = await prismadb.store.findFirst({where: {userId, id: params.storeId}})
-
+  const store = await getStore(params.storeId);
 
   if(!store) redirect('/')
 
