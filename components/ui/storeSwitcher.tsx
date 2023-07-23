@@ -95,7 +95,7 @@ export default function StoreSwitcher({
           leaveTo="opacity-0"
           afterLeave={() => setQuery("")}
         >
-          <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+          <Combobox.Options className="absolute mt-1 max-h-[100vh] w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
             <div className="flex border border-gray-300 rounded">
               <Combobox.Button className="relative inset-y-0 left-0 flex items-center pl-2">
                 <svg
@@ -161,19 +161,29 @@ export default function StoreSwitcher({
               ))
             )}
 
-                <Combobox.Button
-                  className="flex items-center text-xl p-2 justify-center"
-                  onClick={() => {
-                    setOpen(false);
-                    storeModal.onOpen()
-                  }}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-</svg>
-                  <h3>create new store</h3>
-                </Combobox.Button>
-
+            <Combobox.Button
+              className="flex items-center text-xl p-2 justify-center"
+              onClick={() => {
+                setOpen(false);
+                storeModal.onOpen();
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                className="w-6 h-6 text-emerald-400"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <h3 className="text-emerald-700">create new store</h3>
+            </Combobox.Button>
           </Combobox.Options>
         </Transition>
       </div>

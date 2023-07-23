@@ -21,9 +21,11 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
+          <div className='max-w-[1366px] flex flex-col justify-center mx-auto'>
           <TostProvider />
           <ModalProvider />
           {children}
+          </div>
           </body>
       </html>
     </ClerkProvider>
