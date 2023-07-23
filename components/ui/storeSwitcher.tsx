@@ -56,7 +56,7 @@ export default function StoreSwitcher({
 
   return (
     <Combobox value={open} onChange={setOpen}>
-      <div className="relative mt-1">
+      <div className="relative mt-1 w-64">
         <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
           <Combobox.Button className="absolute inset-y-0 left-0 flex items-center pl-2">
             <svg
@@ -75,13 +75,12 @@ export default function StoreSwitcher({
               />
             </svg>
           </Combobox.Button>
-
-          <h3
-            className="w-56 wrap border-none py-2 pl-8 pr-10 text-sm leading-5 text-gray-900 focus:ring-0 outline-none "
+          <Combobox.Button
+            className="w-fit wrap border-none py-2 pl-8 pr-10 text-sm leading-5 text-gray-900 focus:ring-0 outline-none "
             aria-hidden="true"
           >
             {selected.name}
-          </h3>
+          </Combobox.Button>
           <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
             <ChevronUpDownIcon
               className="h-5 w-5 text-gray-400"
@@ -119,6 +118,7 @@ export default function StoreSwitcher({
                 className="w-full border-none py-2 pl-2 pr-2 text-sm leading-5 text-gray-900 focus:ring-0 outline-none "
                 displayValue={(person: any) => person.name}
                 onChange={(event) => setQuery(event.target.value)}
+                placeholder="search store......."
               />
             </div>
             {formattedItems.length === 0 && query !== "" ? (
@@ -160,6 +160,20 @@ export default function StoreSwitcher({
                 </Combobox.Option>
               ))
             )}
+
+                <Combobox.Button
+                  className="flex items-center text-xl p-2 justify-center"
+                  onClick={() => {
+                    setOpen(false);
+                    storeModal.onOpen()
+                  }}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+</svg>
+                  <h3>create new store</h3>
+                </Combobox.Button>
+
           </Combobox.Options>
         </Transition>
       </div>
