@@ -122,7 +122,6 @@ export default function StoreSwitcher({ items = [] }: { items: store[] }) {
                     }`
                   }
                   value={store}
-
                   onClick={() => onSelectedStore(store)}
                 >
                   <span className="flex items-center  justify-between ">

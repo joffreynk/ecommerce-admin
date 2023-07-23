@@ -6,6 +6,7 @@ import { store } from "@prisma/client";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useParams, useRouter } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string().min(2),
@@ -16,6 +17,8 @@ type SettingsFormValues = z.infer<typeof formSchema>;
 const SettingsPageForm = ({initialData}: {initialData: store}) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const params = useParams();
 
   const {handleSubmit, register,  formState: { errors },} = useForm<SettingsFormValues>({
     resolver: zodResolver(formSchema),
@@ -23,9 +26,21 @@ const SettingsPageForm = ({initialData}: {initialData: store}) => {
   });
 
   const onSubmit = async(data: SettingsFormValues) => {
-    console.log('====================================');
-    console.log(data);
-    console.log('====================================');
+    try {
+      setLoading(true);
+      const response = await fetch(`/api/stores/${params.storeId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type':'application/json'},
+        body:JSON.stringify(data.name),
+
+      });
+      const store  = response.json();
+
+      
+
+    } catch (error: any) {
+      
+    }
   }
 
   return (
