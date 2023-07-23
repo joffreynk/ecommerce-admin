@@ -33,24 +33,12 @@ const SettingsPageForm = ({initialData}: {initialData: store}) => {
         method: 'PATCH',
         headers: { 'Content-Type':'application/json'},
         body:JSON.stringify(data.name),
-
       });
       const store  = await response.json();
-
       router.refresh();
       toast.success('Store updated successfully');
-      console.log(store);
-      
-
     } catch (error: any) {
-      console.log('====================================');
-      console.log(error);
-      console.log('====================================');
-      console.log(params.storeId);
-      console.log('====================================');
-      console.log('====================================');
       toast.error('Failed to update given store');
-
     } finally {
       setLoading(false);
     }
