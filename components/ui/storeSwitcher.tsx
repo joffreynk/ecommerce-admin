@@ -19,9 +19,12 @@ export default function StoreSwitcher({ items = [] }: { items: store[] }) {
     label: item.name,
     value: item.id,
   }));
+
   const currentStore = formattedItems.find(
     (item) => item.value === params.storeId
   );
+
+  const selected = currentStore?.value;
 
   const onSelectedStore = (store: { value: String; label: String }) => {
     setOpen(false);
@@ -110,7 +113,7 @@ export default function StoreSwitcher({ items = [] }: { items: store[] }) {
                 <h3> Nothing found.</h3>
               </div>
             ) : (
-              filteredItems.map((store) => (
+              filteredItems.map((store: any) => (
                 <Combobox.Option
                   key={store.value}
                   className={({ active }) =>
@@ -119,28 +122,15 @@ export default function StoreSwitcher({ items = [] }: { items: store[] }) {
                     }`
                   }
                   value={store}
+
                   onClick={() => onSelectedStore(store)}
                 >
-                  {({ selected, active }) => (
-                    <>
-                      <span
-                        className={`block truncate ${
-                          selected ? "font-medium" : "font-normal"
-                        }`}
-                      >
-                        {store.label}
-                      </span>
-                      {selected ? (
-                        <span
-                          className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                            active ? "text-white" : "text-teal-600"
-                          }`}
-                        >
-                          <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                        </span>
-                      ) : null}
-                    </>
-                  )}
+                  <span className="flex items-center  justify-between ">
+                  {store.label}
+                  {
+                    store.value === selected && ( <CheckIcon className="h-5 w-5 text-green-700" aria-hidden="true" />)
+                  }
+                  </span>
                 </Combobox.Option>
               ))
             )}
