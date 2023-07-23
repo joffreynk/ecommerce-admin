@@ -1,6 +1,6 @@
 'use client'
 
-import React from "react";
+import React, { useState } from "react";
 import Heading from "./Heading";
 import { store } from "@prisma/client";
 import * as z from "zod";
@@ -14,17 +14,25 @@ const formSchema = z.object({
 type SettingsFormValues = z.infer<typeof formSchema>;
 
 const SettingsPageForm = ({initialData}: {initialData: store}) => {
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const form = useForm<SettingsFormValues>({
+  const {handleSubmit, register,  formState: { errors },} = useForm<SettingsFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData
   });
+
+  const onSubmit = async(data: SettingsFormValues) => {
+    console.log('====================================');
+    console.log(data);
+    console.log('====================================');
+  }
 
   return (
     <>
       <div className="flex items-center justify-between">
         <Heading title="Settings" description="Manage store preferences" />
-        <button type="button" className="bg-red-700 p-2 rounded-xl">
+        <button type="button" disabled={loading} onClick={()=>setOpen(true)} className="bg-red-700 p-2 rounded-xl">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -42,6 +50,34 @@ const SettingsPageForm = ({initialData}: {initialData: store}) => {
         </button>
       </div>
       <div className="h-[2px] my-2 w-full bg-white" />
+
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col px-2 gap-6 py-4"
+      >
+        <div className="flex flex-col gap-1">
+          <input
+            disabled={loading}
+            {...register("name")}
+            defaultValue={initialData.name}
+            className="border p-2 text-lg rounded-md outline-none w-72 md:w-96 "
+          />
+          {errors.name && (
+            <p className="text-orange-300 " role="alert">
+              Store name must be at least 2 characters
+            </p>
+          )}
+        </div>
+        <div className="flex items-center gap-5 text-lg">
+          <button
+             disabled={loading}
+            className="bg-slate-600 rounded-xl px-4 py-2 hover:bg-green-900 text-white"
+            type="submit"
+          >
+            save changes
+          </button>
+        </div>
+      </form>
     </>
   );
 };

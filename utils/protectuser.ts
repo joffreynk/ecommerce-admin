@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs"
 import { redirect } from "next/navigation"
 
 import prismadb from "@/utils/prismadb";
+import { NextResponse } from "next/server";
 
 export const getUserId = ()=>{
   const {userId} = auth()
@@ -16,4 +17,11 @@ export const getStore = async (storeId?: "")=>{
   }
 
   return store
+}
+
+export const getUserIdBackend = ()=>{
+  const {userId} = auth()
+  if(!userId) return new NextResponse("Unauthorize request", {status: 401});
+  
+  return userId
 }
