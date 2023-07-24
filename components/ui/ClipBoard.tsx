@@ -1,23 +1,42 @@
-'use client'
+"use client";
 import { toast } from "react-hot-toast";
 
-
-const ClipBoard = ({title, url}: {title: string, url:string}) => {
-
-  const ClipBoard = async ()=>{
-    await navigator.clipboard.writeText(url)
-    toast.success("clipboard copied successfully")
-  }
+const ClipBoard = ({ title, url }: { title: string; url: string }) => {
+  const ClipBoard = async () => {
+    await navigator.clipboard.writeText(url);
+    toast.success("clipboard copied successfully");
+  };
 
   return (
-    <div className="w-full border border-gray-400 flex flex-col gap-4 rounded-md p-3">
-      <h3 className="text-xl font-serif font-bold ">{title}</h3>
-      <div className="flex justify-between items-center">
+    <div className="w-full border border-gray-400 flex flex-col gap-3 rounded-md p-3">
+      <div className="flex gap-1">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="1.5"
+          stroke="currentColor"
+          className="w-4 h-4"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z"
+          />
+        </svg>
 
-        <p className="flex items-center gap-4" >
-        <span className="text-xl font-extrabold">copy: </span>
-          <span className="bg-slate-400 p-1 rounded-md ">{url}</span></p>
-        <button type="button" className="p-2 border border-gray-500 rounded-lg" onClick={ClipBoard}>
+        <h3 className="text-md font-serif font-bold ">{title.toUpperCase()}</h3>
+      </div>
+      <div className="flex justify-between items-center">
+        <p className="flex items-center gap-4">
+          <span className="text-sm font-extrabold">copy: </span>
+          <span className="bg-slate-400 p-1 text-xs rounded-md ">{url}</span>
+        </p>
+        <button
+          type="button"
+          className="p-2 border border-gray-500 rounded-lg"
+          onClick={ClipBoard}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
