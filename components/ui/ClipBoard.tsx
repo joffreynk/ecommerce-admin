@@ -1,15 +1,17 @@
 import React from "react";
 
 
-const ClipBoard = () => {
+const ClipBoard = ({title, url}: {title: string, url:string}) => {
+
+  
   return (
     <div className="w-full border border-gray-400 flex flex-col gap-4 rounded-md p-3">
-      <h3 className="text-xl font-serif font-bold ">Title</h3>
+      <h3 className="text-xl font-serif font-bold ">{title}</h3>
       <div className="flex justify-between items-center">
 
         <p className="flex items-center gap-4" >
         <span className="text-xl font-extrabold">copy: </span>
-          <span className="bg-slate-400 p-1 rounded-md ">copying to clipboard</span></p>
+          <span className="bg-slate-400 p-1 rounded-md ">{url}</span></p>
         <button type="button" className="p-2 border border-gray-500 rounded-lg">
           <svg
             xmlns="http://www.w3.org/2000/svg"

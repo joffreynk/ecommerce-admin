@@ -132,7 +132,10 @@ const SettingsPageForm = ({ initialData }: { initialData: store }) => {
 
       <div className="h-[2px] my-2 w-full bg-white" />
 
-      <ClipBoard />
+      <ClipBoard
+        title="SHOES URL"
+        url="SHOES.COM"
+       />
     </>
   );
 };
