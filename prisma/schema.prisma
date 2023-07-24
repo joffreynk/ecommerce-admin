@@ -12,14 +12,15 @@ model store {
   id   String @id @default(uuid())
   name String
   userId String
+  billboards Billboard[] @relation("storeToBillboard")
   createdAt DateTime @default(now())
   updated DateTime @updatedAt
 }
 
 model Billboard {
-  id String @id @default(uuid());
+  id String @id @default(uuid())
   storeId String
-  store Store @relation("storeToBillboard", fields:[storeId], references : [id])
+  store store @relation("storeToBillboard", fields:[storeId], references : [id])
   label String
   imgUrl String
   createdAt DateTime @default(now())
