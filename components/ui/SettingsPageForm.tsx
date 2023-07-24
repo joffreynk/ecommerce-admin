@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import AlertModal from "../modals/AlertModal";
+import ClipBoard from "@/components/ui/ClipBoard";
 
 const formSchema = z.object({
   name: z.string().min(2),
@@ -128,6 +129,10 @@ const SettingsPageForm = ({ initialData }: { initialData: store }) => {
           </button>
         </div>
       </form>
+
+      <div className="h-[2px] my-2 w-full bg-white" />
+
+      <ClipBoard />
     </>
   );
 };
