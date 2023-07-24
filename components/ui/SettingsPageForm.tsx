@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
-import AltertModal from "../modals/AlertModal";
+import AlertModal from "../modals/AlertModal";
 
 const formSchema = z.object({
   name: z.string().min(2),
@@ -69,7 +69,12 @@ const SettingsPageForm = ({ initialData }: { initialData: store }) => {
 
   return (
     <>
-    <AltertModal
+    <AlertModal
+    isOpen={open}
+    onClose={()=>setOpen(false)}
+    onConfirm={onDelete}
+    loading={loading}
+    />
       <div className="flex items-center justify-between">
         <Heading title="Settings" description="Manage store preferences" />
         <button

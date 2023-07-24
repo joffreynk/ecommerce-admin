@@ -27,7 +27,7 @@ const AlertModal: React.FC<AlertModalProps> = ({
   return (
     <Modal
     title="Are you sure you?"
-    description="This action cannot be reverted"
+    description="This action cannot be reverted. It will delete current store, related categories and their products"
     isOpen={isOpen}
     onClose={onClose}
     >
