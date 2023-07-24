@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { toast } from "react-hot-toast";
 
 const ClipBoard = ({ title, url, variant }: { title: string; url: string, variant:'Public'|'Admin' }) => {
@@ -26,12 +27,12 @@ const ClipBoard = ({ title, url, variant }: { title: string; url: string, varian
         </svg>
 
         <h3 className="text-md font-serif font-bold ">{title.toUpperCase()}</h3>
-        <p className={`${variant==='public'?"bg-slate-400 ": "bg-red-950"}p-1 text-xs rounded-md `}>{variant}</p>
+        <p className={`${variant==='Public'?"bg-slate-400 ": "bg-red-950"}p-1 text-xs rounded-md `}>{variant}</p>
       </div>
       <div className="flex justify-between items-center">
         <p className="flex items-center gap-4">
           <span className="text-sm font-extrabold">copy: </span>
-          <span className="bg-slate-400 p-1 text-xs rounded-md ">{url}</span>
+          <Link className="bg-slate-400 p-1 text-xs rounded-md " href={url}>{url}</Link>
         </p>
         <button
           type="button"

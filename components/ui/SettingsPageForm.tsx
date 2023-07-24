@@ -10,6 +10,7 @@ import { useParams, useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import AlertModal from "../modals/AlertModal";
 import ClipBoard from "@/components/ui/ClipBoard";
+import useOrigin from "@/utils/use-origin";
 
 const formSchema = z.object({
   name: z.string().min(2),
@@ -134,7 +135,7 @@ const SettingsPageForm = ({ initialData }: { initialData: store }) => {
 
       <ClipBoard
         title="NEXT_STORE_PUBLIC_API"
-        url={`${useOrigi()}/api/${params.storeId}`}
+        url={`${useOrigin()}/api/${params.storeId}`}
         variant="Public"
        />
     </>
