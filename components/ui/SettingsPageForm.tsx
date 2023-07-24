@@ -133,8 +133,8 @@ const SettingsPageForm = ({ initialData }: { initialData: store }) => {
       <div className="h-[2px] my-2 w-full bg-white" />
 
       <ClipBoard
-        title="SHOES URL"
-        url="http://localhost:3000/d10762a1-d553-46ba-af18-1a6bfd045ca0"
+        title="NEXT_STORE_PUBLIC_API"
+        url={`${useOrigi()}/api/${params.storeId}`}
         variant="Public"
        />
     </>
