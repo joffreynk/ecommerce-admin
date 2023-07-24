@@ -135,6 +135,7 @@ const SettingsPageForm = ({ initialData }: { initialData: store }) => {
       <ClipBoard
         title="SHOES URL"
         url="http://localhost:3000/d10762a1-d553-46ba-af18-1a6bfd045ca0"
+        variant="public"
        />
     </>
   );

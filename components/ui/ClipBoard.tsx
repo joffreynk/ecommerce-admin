@@ -1,7 +1,7 @@
 "use client";
 import { toast } from "react-hot-toast";
 
-const ClipBoard = ({ title, url }: { title: string; url: string }) => {
+const ClipBoard = ({ title, url, variant }: { title: string; url: string, variant:'public'|'admin' }) => {
   const ClipBoard = async () => {
     await navigator.clipboard.writeText(url);
     toast.success("clipboard copied successfully");
@@ -9,7 +9,7 @@ const ClipBoard = ({ title, url }: { title: string; url: string }) => {
 
   return (
     <div className="w-full border border-gray-400 flex flex-col gap-3 rounded-md p-3">
-      <div className="flex gap-1">
+      <div className="flex gap-1 items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -26,6 +26,7 @@ const ClipBoard = ({ title, url }: { title: string; url: string }) => {
         </svg>
 
         <h3 className="text-md font-serif font-bold ">{title.toUpperCase()}</h3>
+        <p className={`${variant==='public'?"bg-slate-400 ": "bg-red-950"}p-1 text-xs rounded-md `}>{variant}</p>
       </div>
       <div className="flex justify-between items-center">
         <p className="flex items-center gap-4">
