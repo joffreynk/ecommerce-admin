@@ -12,12 +12,12 @@ model store {
   id   String @id @default(uuid())
   name String
   userId String
-  billboards Billboard[] @relation("storeToBillboard")
+  billboards billboard[] @relation("storeToBillboard")
   createdAt DateTime @default(now())
   updated DateTime @updatedAt
 }
 
-model Billboard {
+model billboard {
   id String @id @default(uuid())
   storeId String
   store store @relation("storeToBillboard", fields:[storeId], references : [id])
