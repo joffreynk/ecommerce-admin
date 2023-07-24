@@ -1,7 +1,7 @@
 "use client";
 import { toast } from "react-hot-toast";
 
-const ClipBoard = ({ title, url, variant }: { title: string; url: string, variant:'public'|'admin' }) => {
+const ClipBoard = ({ title, url, variant }: { title: string; url: string, variant:'Public'|'Admin' }) => {
   const ClipBoard = async () => {
     await navigator.clipboard.writeText(url);
     toast.success("clipboard copied successfully");
