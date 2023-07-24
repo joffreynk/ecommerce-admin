@@ -3,14 +3,14 @@
 import React, { useEffect, useState } from "react";
 import { Modal } from "../reusableComponents/madal";
 
-interface AltertModalProps {
+interface AlertModalProps {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
   loading: boolean;
 }
 
-const AltertModal: React.FC<AltertModalProps> = ({
+const AlertModal: React.FC<AlertModalProps> = ({
   isOpen,
   onClose,
   onConfirm,
@@ -38,4 +38,4 @@ const AltertModal: React.FC<AltertModalProps> = ({
   )
 };
 
-export default AltertModal;
+export default AlertModal;

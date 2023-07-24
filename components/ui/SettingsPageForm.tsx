@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
+import AltertModal from "../modals/AlertModal";
 
 const formSchema = z.object({
   name: z.string().min(2),
@@ -68,15 +69,13 @@ const SettingsPageForm = ({ initialData }: { initialData: store }) => {
 
   return (
     <>
+    <AltertModal
       <div className="flex items-center justify-between">
         <Heading title="Settings" description="Manage store preferences" />
         <button
           type="button"
           disabled={loading}
-          onClick={() => {
-            setOpen(true);
-            onDelete();
-          }}
+          onClick={() =>setOpen(true)}
           className="bg-red-700 p-2 rounded-xl"
         >
           <svg
