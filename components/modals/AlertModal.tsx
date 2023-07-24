@@ -32,7 +32,7 @@ const AlertModal: React.FC<AlertModalProps> = ({
     onClose={onClose}
     >
       <div className="flex justify-end items-center ">
-        <button disabled={loading} onClick={onConfirm} type="button">Confirm</button>
+        <button className="bg-slate-600 rounded-xl px-4 py-2 hover:bg-red-950 text-white" disabled={loading} onClick={onConfirm} type="button">Confirm</button>
       </div>
     </Modal>
   )
