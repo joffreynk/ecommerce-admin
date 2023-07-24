@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React, { useState } from "react";
 import Heading from "./Heading";
@@ -11,44 +11,74 @@ import { toast } from "react-hot-toast";
 
 const formSchema = z.object({
   name: z.string().min(2),
-})
+});
 
 type SettingsFormValues = z.infer<typeof formSchema>;
 
-const SettingsPageForm = ({initialData}: {initialData: store}) => {
+const SettingsPageForm = ({ initialData }: { initialData: store }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const params = useParams();
 
-  const {handleSubmit, register,  formState: { errors },} = useForm<SettingsFormValues>({
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<SettingsFormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData
+    defaultValues: initialData,
   });
 
-  const onSubmit = async(data: SettingsFormValues) => {
+  const onSubmit = async (data: SettingsFormValues) => {
     try {
       setLoading(true);
       const response = await fetch(`/api/stores/${params.storeId}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type':'application/json'},
-        body:JSON.stringify(data),
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
       });
-      const store  = await response.json();
+      const store = await response.json();
       router.refresh();
-      toast.success('Store updated successfully');
+      toast.success("Store updated successfully");
     } catch (error: any) {
-      toast.error('Failed to update given store');
+      toast.error("Failed to update given store");
     } finally {
       setLoading(false);
     }
-  }
+  };
+
+  const onDelete = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(`/api/stores/${params.storeId}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      });
+      const store = await response.json();
+      router.refresh();
+      router.push("/");
+      toast.success("Store delete successfully");
+    } catch (error: any) {
+      toast.error("Failed to delete given store");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
       <div className="flex items-center justify-between">
         <Heading title="Settings" description="Manage store preferences" />
-        <button type="button" disabled={loading} onClick={()=>setOpen(true)} className="bg-red-700 p-2 rounded-xl">
+        <button
+          type="button"
+          disabled={loading}
+          onClick={() => {
+            setOpen(true);
+            onDelete();
+          }}
+          className="bg-red-700 p-2 rounded-xl"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -86,7 +116,7 @@ const SettingsPageForm = ({initialData}: {initialData: store}) => {
         </div>
         <div className="flex items-center gap-5 text-lg">
           <button
-             disabled={loading}
+            disabled={loading}
             className="bg-slate-600 rounded-xl px-4 py-2 hover:bg-green-900 text-white"
             type="submit"
           >
