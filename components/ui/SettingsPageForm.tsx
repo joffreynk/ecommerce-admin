@@ -23,6 +23,7 @@ const SettingsPageForm = ({ initialData }: { initialData: store }) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const params = useParams();
+  const origin = useOrigin()
 
   const {
     handleSubmit,
@@ -135,7 +136,7 @@ const SettingsPageForm = ({ initialData }: { initialData: store }) => {
 
       <ClipBoard
         title="NEXT_STORE_PUBLIC_API"
-        url={`${useOrigin()}/api/${params.storeId}`}
+        url={`${origin}/api/${params.storeId}`}
         variant="Public"
        />
     </>
