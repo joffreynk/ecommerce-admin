@@ -32,7 +32,7 @@ const SettingsPageForm = ({initialData}: {initialData: store}) => {
       const response = await fetch(`/api/stores/${params.storeId}`, {
         method: 'PATCH',
         headers: { 'Content-Type':'application/json'},
-        body:JSON.stringify(data.name),
+        body:JSON.stringify(data),
       });
       const store  = await response.json();
       router.refresh();

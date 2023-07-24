@@ -2,7 +2,7 @@ import prismadb from "@/utils/prismadb";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
-export const PATCH = async (req: Request, {params}: any) => {
+export const PATCH = async (req: Request, {params}: any,) => {
   try {
     const { userId } = auth();
     if (!userId){
