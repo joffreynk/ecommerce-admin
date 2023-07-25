@@ -15,3 +15,11 @@ export const getStore = async (storeId?: "")=>{
 
   return store
 }
+
+
+export const getBillBoard = async (storeId?: "")=>{
+  
+  const store = await prismadb.billboard.findMany()
+
+  return store
+}
