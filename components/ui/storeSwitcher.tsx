@@ -127,7 +127,7 @@ export default function StoreSwitcher({ items = [] }: { items: store[] }) {
                   <span className="flex items-center  justify-between ">
                   {store.label}
                   {
-                    store.value === selected && ( <CheckIcon className="h-5 w-5 text-green-700" aria-hidden="true" />)
+                    store.value === selected && ( <CheckIcon className="h-5 w-5"/>)
                   }
                   </span>
                 </Combobox.Option>
