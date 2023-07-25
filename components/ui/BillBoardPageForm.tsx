@@ -88,7 +88,9 @@ const BillBoardPageForm = ({ initialData }: { initialData: billboard | null}) =>
     />
       <div className="flex items-center justify-between">
         <Heading title={title} description={description} />
-        <button
+        {
+          initialData && (
+            <button
           type="button"
           disabled={loading}
           onClick={() =>setOpen(true)}
@@ -109,6 +111,8 @@ const BillBoardPageForm = ({ initialData }: { initialData: billboard | null}) =>
             />
           </svg>
         </button>
+          )
+        }
       </div>
       <div className="h-[2px] my-2 w-full bg-white" />
 
