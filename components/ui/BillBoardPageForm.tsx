@@ -14,6 +14,7 @@ import useOrigin from "@/utils/use-origin";
 
 const formSchema = z.object({
   label: z.string().min(2),
+  imgUrl: z.string().min(7),
 });
 
 type BillBoardFormValues = z.infer<typeof formSchema>;
@@ -38,7 +39,7 @@ const BillBoardPageForm = ({ initialData }: { initialData: billboard | null}) =>
     formState: { errors },
   } = useForm<BillBoardFormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData,
+    defaultValues: initialData||{label: "", imgUrl: ""},
   });
 
   const onSubmit = async (data: BillBoardFormValues) => {
