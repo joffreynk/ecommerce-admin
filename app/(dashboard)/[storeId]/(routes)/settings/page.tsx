@@ -1,4 +1,4 @@
-import SettingsPageForm from '@/components/ui/SettingsPageForm';
+import SettingsPageForm from '@/components/uiComponents/SettingsPageForm';
 import { getStore } from '@/utils/protectuser'
 import React from 'react'
 

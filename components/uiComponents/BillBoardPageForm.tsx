@@ -9,8 +9,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import AlertModal from "../modals/AlertModal";
-import ClipBoard from "@/components/ui/ClipBoard";
-import useOrigin from "@/utils/use-origin";
 import ImageUpload from "./imageUpload";
 
 const formSchema = z.object({
@@ -29,7 +27,6 @@ const BillBoardPageForm = ({
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const params = useParams();
-  const origin = useOrigin();
 
   const title = initialData ? "Edit bill Board" : "crate bill Board";
   const description = initialData
@@ -70,7 +67,7 @@ const BillBoardPageForm = ({
           body: JSON.stringify(data),
         });
       }
-      router.refresh();
+      router.push(`/${params.storeId}/billboards/`);
       toast.success(toastmessageSuccess);
     } catch (error: any) {
       toast.error(toastmessageError);
@@ -82,13 +79,11 @@ const BillBoardPageForm = ({
   const onDelete = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`/api/${params.storeId}/billboards/${params.billboardId}`, {
+      await fetch(`/api/${params.storeId}/billboards/${params.billboardId}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       });
-      const store = await response.json();
-      router.refresh();
-      router.push("/");
+      router.push(`/${params.storeId}/billboards/`);
       toast.success("Successfully deleted the billboard");
     } catch (error: any) {
       toast.error("Failed billboard, Make sure all categories uses this billboard has been deleted");
@@ -178,12 +173,6 @@ const BillBoardPageForm = ({
       </form>
 
       <div className="h-[2px] my-2 w-full bg-white" />
-
-      {/* <ClipBoard
-        title="NEXT_STORE_PUBLIC_API"
-        url={`${origin}/api/${params.storeId}/${params.billboardId}`}
-        variant="Public"
-       /> */}
     </>
   );
 };

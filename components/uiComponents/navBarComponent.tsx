@@ -1,6 +1,6 @@
 import { UserButton, auth } from "@clerk/nextjs"
-import MainNav from "@/components/ui/mainNav"
-import StoreSwitcher from "@/components/ui/storeSwitcher"
+import MainNav from "@/components/uiComponents/mainNav"
+import StoreSwitcher from "@/components/uiComponents/storeSwitcher"
 import prismadb from "@/utils/prismadb"
 import { getUserId } from "@/utils/protectuser"
 

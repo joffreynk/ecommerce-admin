@@ -30,7 +30,7 @@ const MainNav = ({className, ...props}: React.HTMLAttributes<HTMLElement>) => {
       <Link 
       key={route.href}
       href={route.href}
-      className={`text-sm font-medium transition-colors hover:text-green-800 ${route.active? "text-black dark:text-white":"text-gray-600"}`}
+      className={`text-sm font-medium transition-colors hover:text-green-800 ${route.active? "text-black font-extrabold text-lg dark:text-white":"text-gray-600"}`}
       >
         {route.label}
       </Link>

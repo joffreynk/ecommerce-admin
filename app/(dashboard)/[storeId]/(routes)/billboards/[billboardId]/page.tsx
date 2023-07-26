@@ -1,4 +1,4 @@
-import BillBoardPageForm from "@/components/ui/BillBoardPageForm";
+import BillBoardPageForm from "@/components/uiComponents/BillBoardPageForm";
 import prismadb from "@/utils/prismadb";
 import React from "react";
 

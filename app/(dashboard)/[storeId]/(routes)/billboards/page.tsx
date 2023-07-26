@@ -1,4 +1,4 @@
-import BillBoardClient from "@/components/ui/billBoardClient";
+import BillBoardClient from "@/components/uiComponents/billBoardClient";
 import React from "react";
 
 

@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import AlertModal from "../modals/AlertModal";
-import ClipBoard from "@/components/ui/ClipBoard";
+import ClipBoard from "@/components/uiComponents/ClipBoard";
 import useOrigin from "@/utils/use-origin";
 
 const formSchema = z.object({

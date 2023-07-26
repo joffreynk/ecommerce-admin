@@ -1,6 +1,6 @@
 "use client";
 
-import Heading from "@/components/ui/Heading";
+import Heading from "@/components/uiComponents/Heading";
 import { useParams, useRouter } from "next/navigation";
 
 const BillBoardClient = () => {
