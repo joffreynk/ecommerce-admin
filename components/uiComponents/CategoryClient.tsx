@@ -1,22 +1,38 @@
 "use client";
+import useSWR from "swr";
 import { useParams, useRouter } from "next/navigation";
 
 import Heading from "@/components/uiComponents/Heading";
 import DataTable from "./DataTable";
 import { billboard } from "@prisma/client";
+import { useEffect, useState } from "react";
 import { billBoardTableRow } from "../types/BillboardColumns";
 import APIList from "./APIList";
 
-const BillBoardClient = ({formattedBillboards}: {formattedBillboards: billboard[]}) => {
+const CategoryClient = () => {
   const router = useRouter();
   const params = useParams();
+  const [isMounted, setIsMounted] = useState(false)
 
+  const fetcher = (...args: any) => fetch(...args).then((res) => res.json());
+  const { data, error, isLoading } = useSWR(`/api/${params.storeId}/billboards`, fetcher);
+
+
+  useEffect(()=>{
+    setIsMounted(true);
+  }, [])
+
+
+  const billboards = data?.length && data.map((billboard: billboard)=>({label: billboard.label, id: billboard.id, imgUrl: billboard.imgUrl}));
+
+  if(isLoading) return <h1>Billboards are loading......</h1>;
+  if(error) return <h1>Failed to fetch Billboards</h1>;
 
   return (
     <>
       <div className="flex items-center justify-between">
         <Heading
-          title={`BillBoards (${formattedBillboards.length})`}
+          title={`BillBoards (${billboards.length})`}
           description="Maanage your billboards"
         />
         <button
@@ -44,7 +60,7 @@ const BillBoardClient = ({formattedBillboards}: {formattedBillboards: billboard[
 
       <div className="h-[2px] my-6 w-full bg-slate-200" />
 
-      <DataTable headers={billBoardTableRow} billboards={formattedBillboards}  />
+      <DataTable headers={billBoardTableRow} billboards={billboards}  />
 
       <div className="h-[2px] my-6 w-full bg-slate-200" />
     <Heading
@@ -57,4 +73,4 @@ const BillBoardClient = ({formattedBillboards}: {formattedBillboards: billboard[
   );
 };
 
-export default BillBoardClient;
+export default CategoryClient;
