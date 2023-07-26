@@ -9,7 +9,15 @@ const DataTable = ({headers, billboards}: {headers: billBoardTableRowProps[], bi
   const params = useParams();
   const [query, setQuery] = useState('')
 
-
+  const filteredItems =
+    query === ""
+      ? billboards
+      : billboards.filter((item) =>
+          item.label
+            .toLowerCase()
+            .replace(/\s+/g, "")
+            .includes(query.toLowerCase().replace(/\s+/g, ""))
+        );
 
   return (
     <div className="flex flex-col">
@@ -35,7 +43,7 @@ const DataTable = ({headers, billboards}: {headers: billBoardTableRowProps[], bi
                 </thead>
                 <tbody>
                    {
-                    billboards.map((billboard, i)=>(
+                    filteredItems.map((billboard, i)=>(
                       <tr key={billboard.id} className="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
                       <td className="whitespace-nowrap px-6 py-4 font-medium">
                       {i+1}
