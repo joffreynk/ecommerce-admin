@@ -6,6 +6,7 @@ import Heading from "@/components/uiComponents/Heading";
 import DataTable from "./DataTable";
 import { billboard } from "@prisma/client";
 import { useEffect, useState } from "react";
+import { billBoardTableRow } from "../types/BillboardColumns";
 
 const BillBoardClient = () => {
   const router = useRouter();
@@ -58,7 +59,7 @@ const BillBoardClient = () => {
 
       <div className="h-[2px] my-6 w-full bg-slate-200" />
 
-      <DataTable />
+      <DataTable headers={billBoardTableRow} billboards={billboards}  />
     </>
   );
 };

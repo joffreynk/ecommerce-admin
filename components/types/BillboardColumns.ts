@@ -1,7 +1,7 @@
 export interface BillBoard {
   id: string;
   label: string;
-  imgURl: string;
+  imgUrl: string;
 }
 
 export interface billBoardTableRowProps {
@@ -20,7 +20,7 @@ export const billBoardTableRow = [
   },
   {
     accessor: "imgUrl",
-    header: "Image URL",
+    header: "Image",
   },
   {
     accessor: "manage",

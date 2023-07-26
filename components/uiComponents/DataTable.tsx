@@ -1,10 +1,11 @@
+import Image from "next/image";
+import { BillBoard, billBoardTableRowProps } from "../types/BillboardColumns";
 
+const DataTable = ({headers, billboards}: {headers: billBoardTableRowProps[], billboards:BillBoard[] }) => {
 
-interface DataTableProps  {
-  Data
-}
-
-const DataTable = () => {
+  console.log('====================================');
+  console.log(billboards);
+  console.log('====================================');
 
   return (
     <div>
@@ -15,45 +16,35 @@ const DataTable = () => {
               <table className="min-w-full text-left text-sm font-light border rounded-xl">
                 <thead className="border-b font-medium dark:border-neutral-500">
                   <tr>
-                    <th scope="col" className="px-6 py-4">
-                      #
-                    </th>
-                    <th scope="col" className="px-6 py-4">
-                      First
-                    </th>
-                    <th scope="col" className="px-6 py-4">
-                      Last
-                    </th>
-                    <th scope="col " className="px-6 py-4 justify-self-end">
-                      Handle
-                    </th>
+                  {
+                    headers.map(header=>(
+                      <th key={header.accessor} scope="col" className="px-6 py-4">
+                        {header.header}
+                      </th>
+                    ))
+                   }
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
-                    <td className="whitespace-nowrap px-6 py-4 font-medium">
-                      1
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4">Mark</td>
-                    <td className="whitespace-nowrap px-6 py-4">Otto</td>
-                    <td className="whitespace-nowrap px-6 py-4">@mdo</td>
-                  </tr>
-                  <tr className="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
-                    <td className="whitespace-nowrap px-6 py-4 font-medium">
-                      2
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4">Jacob</td>
-                    <td className="whitespace-nowrap px-6 py-4">Thornton</td>
-                    <td className="whitespace-nowrap px-6 py-4">@fat</td>
-                  </tr>
-                  <tr className="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
-                    <td className="whitespace-nowrap px-6 py-4 font-medium">
-                      3
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4">Larry</td>
-                    <td className="whitespace-nowrap px-6 py-4">Wild</td>
-                    <td className="whitespace-nowrap px-6 py-4">@twitter</td>
-                  </tr>
+                   {
+                    billboards.map((billboard, i)=>(
+                      <tr key={billboard.id} className="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
+                      <td className="whitespace-nowrap px-6 py-4 font-medium">
+                      {i+1}
+                      </td>
+                      <td className="whitespace-nowrap px-6 py-4">{billboard.label}</td>
+                      <td className="whitespace-nowrap px-6 py-4">
+                        <Image src={billboard.imgUrl} alt="billboard" height={150} width={150} />
+                      </td >
+                      <td className="whitespace-nowrap px-6 py-4">
+                        <button type="button">
+                          view More
+                        </button>
+                      </td>
+                    </tr>
+                    ))
+                   }
+                 
                 </tbody>
               </table>
             </div>
