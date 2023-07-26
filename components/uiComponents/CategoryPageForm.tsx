@@ -9,7 +9,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import AlertModal from "../modals/AlertModal";
-import ImageUpload from "./imageUpload";
 
 const formSchema = z.object({
   name: z.string().min(2),
@@ -86,7 +85,9 @@ const CategoryPageForm = ({
       router.push(`/${params.storeId}/categories/`);
       toast.success("Successfully deleted the billboard");
     } catch (error: any) {
-      toast.error("Failed billboard, Make sure all categories uses this billboard has been deleted");
+      toast.error(
+        "Failed billboard, Make sure all categories uses this billboard has been deleted"
+      );
     } finally {
       setLoading(false);
     }
@@ -136,10 +137,15 @@ const CategoryPageForm = ({
       >
         <div className="flex flex-col gap-1">
           <label htmlFor="backgroundImage">billboard ID</label>
-         
+          <select {...register("billboardId")} name="billboardId" className="w-4/12">
+            <option  selected disabled>billboard ID </option>
+            <option value="female">female</option>
+            <option value="male">male</option>
+            <option value="other">other</option>
+          </select>
           {errors?.billboardId && (
             <p className="text-orange-300 " role="alert">
-              category image must be exist
+              Billboard ID must be exist
             </p>
           )}
         </div>
