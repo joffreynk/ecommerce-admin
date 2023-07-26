@@ -99,6 +99,8 @@ const BillBoardPageForm = ({
         onClose={() => setOpen(false)}
         onConfirm={onDelete}
         loading={loading}
+        title="Are you sure you?"
+        description="This action cannot be reverted. It will delete current Billboard"
       />
       <div className="flex items-center justify-between">
         <Heading title={title} description={description} />

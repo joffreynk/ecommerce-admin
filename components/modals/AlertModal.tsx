@@ -5,6 +5,8 @@ import { Modal } from "../reusableComponents/madal";
 
 interface AlertModalProps {
   isOpen: boolean;
+  title: string;
+  description: string;
   onClose: () => void;
   onConfirm: () => void;
   loading: boolean;
@@ -15,6 +17,8 @@ const AlertModal: React.FC<AlertModalProps> = ({
   onClose,
   onConfirm,
   loading,
+  title,
+  description
 }) => {
   const [isMounted, setIsMounted] = useState(false);
 
@@ -26,8 +30,8 @@ const AlertModal: React.FC<AlertModalProps> = ({
 
   return (
     <Modal
-    title="Are you sure you?"
-    description="This action cannot be reverted. It will delete current store, related categories and their products"
+    title={title}
+    description={description}
     isOpen={isOpen}
     onClose={onClose}
     >

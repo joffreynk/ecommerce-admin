@@ -77,6 +77,8 @@ const SettingsPageForm = ({ initialData }: { initialData: store }) => {
     onClose={()=>setOpen(false)}
     onConfirm={onDelete}
     loading={loading}
+     title="Are you sure you?"
+     description="This action cannot be reverted. It will delete current store, related categories and their products"
     />
       <div className="flex items-center justify-between">
         <Heading title="Settings" description="Manage store preferences" />
