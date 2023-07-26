@@ -1,5 +1,6 @@
 import prismadb from "@/utils/prismadb"
 import { auth } from "@clerk/nextjs"
+import { useParams } from "next/navigation"
 import { NextResponse } from "next/server"
 
 
@@ -30,4 +31,3 @@ export const POST = async(req: Request,) => {
     return new NextResponse(error.message, {status: 500})
   }
 }
-

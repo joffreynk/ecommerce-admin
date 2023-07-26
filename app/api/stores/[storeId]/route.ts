@@ -60,3 +60,28 @@ export const DELETE = async (req: Request, {params}: any) => {
     return new NextResponse(error.message, {status: 500})
   }
 };
+
+
+
+export const GET = async (req: Request, {params}: any) =>  {
+  try {
+    const {userId} = auth()
+
+    if(!userId) {
+      return new NextResponse("Unauthorize request", {status: 401})
+    }
+
+    const stores = await prismadb.store.findMany({
+      where: {
+        userId,
+        id: params.storeId
+      }
+    })
+
+    return new NextResponse(JSON.stringify(stores), {status: 201})
+
+  } catch (error: any) {
+    console.log('[CREATE STORE ERROR]', error)
+    return new NextResponse(error.message, {status: 500})
+  }
+}
