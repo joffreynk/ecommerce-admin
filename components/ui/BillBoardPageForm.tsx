@@ -46,16 +46,13 @@ const BillBoardPageForm = ({
   const {
     handleSubmit,
     register,
-    formState: { errors, touchedFields },
+    setValue,
+    getValues,
+    formState: { errors },
   } = useForm<BillBoardFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || { label: "", imgUrl: "" },
   });
-
-
-  console.log('====================================');
-  console.log(touchedFields);
-  console.log('====================================');
 
   const onSubmit = async (data: BillBoardFormValues) => {
     console.log('====================================');
@@ -70,7 +67,7 @@ const BillBoardPageForm = ({
     //   });
     //   const store = await response.json();
     //   router.refresh();
-    //   toast.success(toastmessageSuccess);
+      toast.success(toastmessageSuccess);
     // } catch (error: any) {
     //   toast.error(toastmessageError);
     // } finally {
@@ -138,23 +135,15 @@ const BillBoardPageForm = ({
       >
         <div className="flex flex-col gap-1">
           <label htmlFor="backgroundImage">Backgound Image</label>
-          {/* <input
-            disabled={loading}
-            {...register("imgUrl")}
-            defaultValue={initialData?.imgUrl}
-            className="border p-2 text-lg rounded-md outline-none w-72 md:w-96 "
-          /> */}
-
           <ImageUpload
-          value={initialData?.imgUrl? [initialData?.imgUrl] : []} 
+          value={getValues('imgUrl').length ? [getValues('imgUrl')] : []} 
           disabled={loading}
-          // onChange={(url)={
-          //   {...register({imgUrl: url})}
-          // }}
+          onChange={(url)=>(setValue('imgUrl', url))}
+          onRemove={()=>(setValue('imgUrl', ''))}
           />
-          {errors.label && (
+          {errors?.imgUrl && (
             <p className="text-orange-300 " role="alert">
-              Bill Board name must be at least 2 characters
+              Bill Board image must be exist
             </p>
           )}
         </div>
@@ -167,7 +156,7 @@ const BillBoardPageForm = ({
             defaultValue={initialData?.label}
             className="border p-2 text-lg rounded-md outline-none w-72 md:w-96 "
           />
-          {errors.label && (
+          {errors?.label && (
             <p className="text-orange-300 " role="alert">
               Bill Board name must be at least 2 characters
             </p>
