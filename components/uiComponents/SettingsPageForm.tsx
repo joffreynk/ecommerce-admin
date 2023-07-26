@@ -102,7 +102,7 @@ const SettingsPageForm = ({ initialData }: { initialData: store }) => {
           </svg>
         </button>
       </div>
-      <div className="h-[2px] my-2 w-full bg-white" />
+      <div className="h-[2px] my-6 w-full bg-slate-200" />
 
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -132,7 +132,7 @@ const SettingsPageForm = ({ initialData }: { initialData: store }) => {
         </div>
       </form>
 
-      <div className="h-[2px] my-2 w-full bg-white" />
+      <div className="h-[2px]  my-6 w-full bg-slate-200" />
 
       <ClipBoard
         title="NEXT_STORE_PUBLIC_API"
