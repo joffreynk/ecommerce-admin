@@ -1,43 +1,28 @@
 "use client";
-import useSWR from "swr";
 import { useParams, useRouter } from "next/navigation";
 
 import Heading from "@/components/uiComponents/Heading";
 import DataTable from "./DataTable";
-import { billboard } from "@prisma/client";
-import { useEffect, useState } from "react";
-import { billBoardTableRow } from "../types/BillboardColumns";
 import APIList from "./APIList";
+import { Category, CategoryTableRow } from "../types/CategoryColumns";
 
-const CategoryClient = () => {
+const CategoryClient = ({formattedcategories}: {formattedcategories:Category[]}) => {
+  console.log('====================================');
+  console.log(formattedcategories);
+  console.log('====================================');
   const router = useRouter();
   const params = useParams();
-  const [isMounted, setIsMounted] = useState(false)
-
-  const fetcher = (...args: any) => fetch(...args).then((res) => res.json());
-  const { data, error, isLoading } = useSWR(`/api/${params.storeId}/billboards`, fetcher);
-
-
-  useEffect(()=>{
-    setIsMounted(true);
-  }, [])
-
-
-  const billboards = data?.length && data.map((billboard: billboard)=>({label: billboard.label, id: billboard.id, imgUrl: billboard.imgUrl}));
-
-  if(isLoading) return <h1>Billboards are loading......</h1>;
-  if(error) return <h1>Failed to fetch Billboards</h1>;
-
+  
   return (
     <>
       <div className="flex items-center justify-between">
         <Heading
-          title={`BillBoards (${billboards.length})`}
-          description="Maanage your billboards"
+          title={`Categories (${formattedcategories.length})`}
+          description="Manage your categories"
         />
         <button
           type="button"
-          onClick={() => router.push(`/${params.storeId}/billboards/new`)}
+          onClick={() => router.push(`/${params.storeId}/categories/new`)}
           className="bg-slate-700 p-2 rounded-md flex items-center justify-center text-white pr-4 "
         >
           <svg
@@ -60,15 +45,15 @@ const CategoryClient = () => {
 
       <div className="h-[2px] my-6 w-full bg-slate-200" />
 
-      <DataTable headers={billBoardTableRow} billboards={billboards}  />
+      <DataTable headers={CategoryTableRow} categories={formattedcategories}  />
 
       <div className="h-[2px] my-6 w-full bg-slate-200" />
     <Heading
     title="API List "
-    description="Possible API list for billboards"
+    description="Possible API list for categories"
      />
 
-     <APIList entityId="billboardId" entityName="billboards" />
+     <APIList entityId="categoryId" entityName="categories" />
     </>
   );
 };

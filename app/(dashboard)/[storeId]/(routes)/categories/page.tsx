@@ -2,6 +2,7 @@ import { format } from "date-fns";
 
 import CategoryClient from "@/components/uiComponents/CategoryClient";
 import prismadb from "@/utils/prismadb";
+import { category } from "@prisma/client";
 
 export default async  function Categories({params}: {params: {storeId: string}}) {
   const categories = await prismadb.category.findMany({
@@ -15,7 +16,7 @@ export default async  function Categories({params}: {params: {storeId: string}})
   })
 
   
-  const formattedcategories = categories?.length && categories.map((category: any)=>({
+  const formattedcategories = categories.map((category: any)=>({
     id: category.id,
     name: category.name,
     billboardLabel: category.billboard.label,
@@ -27,7 +28,7 @@ export default async  function Categories({params}: {params: {storeId: string}})
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <CategoryClient   />
+        <CategoryClient formattedcategories={formattedcategories}   />
       </div>
     </div>
   );

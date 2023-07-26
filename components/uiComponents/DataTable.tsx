@@ -1,9 +1,9 @@
 import Image from "next/image";
-import { BillBoard, billBoardTableRowProps } from "../types/BillboardColumns";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
+import { Category, CategoryTableRowProps } from "../types/CategoryColumns";
 
-const DataTable = ({headers, billboards}: {headers: billBoardTableRowProps[], billboards:BillBoard[] }) => {
+const DataTable = ({headers, categories}: {headers: CategoryTableRowProps[], categories:Category[] }) => {
 
   const router = useRouter();
   const params = useParams();
@@ -11,9 +11,9 @@ const DataTable = ({headers, billboards}: {headers: billBoardTableRowProps[], bi
 
   const filteredItems =
     query === ""
-      ? billboards
-      : billboards.filter((item) =>
-          item.label
+      ? categories
+      : categories.filter((item: Category) =>
+          item.name
             .toLowerCase()
             .replace(/\s+/g, "")
             .includes(query.toLowerCase().replace(/\s+/g, ""))
@@ -43,14 +43,17 @@ const DataTable = ({headers, billboards}: {headers: billBoardTableRowProps[], bi
                 </thead>
                 <tbody>
                    {
-                    filteredItems.map((billboard, i)=>(
-                      <tr key={billboard.id} className="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
+                    filteredItems.length && filteredItems.map((category, i)=>(
+                      <tr key={category.id} className="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
                       <td className="whitespace-nowrap px-6 py-4 font-medium">
                       {i+1}
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4">{billboard.label}</td>
+                      <td className="whitespace-nowrap px-6 py-4">{category.name}</td>
                       <td className="whitespace-nowrap px-6 py-4">
-                        <Image src={billboard.imgUrl} alt="billboard" height={150} width={150} />
+                      {category.billboardLabel}
+                      </td >
+                      <td className="whitespace-nowrap px-6 py-4">
+                      {category.createdAt}
                       </td >
                       <td className="whitespace-nowrap px-6 py-4">
                         <button type="button" className="bg-slate-500 p-2 rounded-md text-lg text-white hover:bg-teal-600" onClick={() => router.push(`/${params.storeId}/billboards/${billboard.id}`)}>
