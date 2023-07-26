@@ -55,39 +55,43 @@ const BillBoardPageForm = ({
   });
 
   const onSubmit = async (data: BillBoardFormValues) => {
-    console.log('====================================');
-    console.log("DATA",data);
-    console.log('====================================');
-    // try {
-    //   setLoading(true);
-    //   const response = await fetch(`/api/stores/${params.storeId}`, {
-    //     method: "PATCH",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(data),
-    //   });
-    //   const store = await response.json();
-    //   router.refresh();
+    try {
+      setLoading(true);
+      if (initialData) {
+        await fetch(`/api/${params.storeId}/billboards/${params.billboardId}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+      } else {
+        await fetch(`/api/${params.storeId}/billboards`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+      }
+      router.refresh();
       toast.success(toastmessageSuccess);
-    // } catch (error: any) {
-    //   toast.error(toastmessageError);
-    // } finally {
-    //   setLoading(false);
-    // }
+    } catch (error: any) {
+      toast.error(toastmessageError);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const onDelete = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`/api/stores/${params.storeId}`, {
+      const response = await fetch(`/api/${params.storeId}/billboards/${params.billboardId}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       });
       const store = await response.json();
       router.refresh();
       router.push("/");
-      toast.success("Store delete successfully");
+      toast.success("Successfully deleted the billboard");
     } catch (error: any) {
-      toast.error("Failed to delete given store");
+      toast.error("Failed billboard, Make sure all categories uses this billboard has been deleted");
     } finally {
       setLoading(false);
     }
@@ -136,10 +140,10 @@ const BillBoardPageForm = ({
         <div className="flex flex-col gap-1">
           <label htmlFor="backgroundImage">Backgound Image</label>
           <ImageUpload
-          value={watch('imgUrl').length ? [watch('imgUrl')] : []} 
-          disabled={loading}
-          onChange={(url)=>(setValue('imgUrl', url))}
-          onRemove={()=>(setValue('imgUrl', ''))}
+            value={watch("imgUrl").length ? [watch("imgUrl")] : []}
+            disabled={loading}
+            onChange={(url) => setValue("imgUrl", url)}
+            onRemove={() => setValue("imgUrl", "")}
           />
           {errors?.imgUrl && (
             <p className="text-orange-300 " role="alert">
@@ -149,7 +153,7 @@ const BillBoardPageForm = ({
         </div>
 
         <div className="flex flex-col gap-1">
-        <label htmlFor="backgroundImage">Label</label>
+          <label htmlFor="backgroundImage">Label</label>
           <input
             disabled={loading}
             {...register("label")}
