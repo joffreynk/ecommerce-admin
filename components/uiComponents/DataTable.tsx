@@ -3,12 +3,14 @@ import { BillBoard, billBoardTableRowProps } from "../types/BillboardColumns";
 
 const DataTable = ({headers, billboards}: {headers: billBoardTableRowProps[], billboards:BillBoard[] }) => {
 
-  console.log('====================================');
-  console.log(billboards);
-  console.log('====================================');
+
 
   return (
-    <div>
+    <div className="flex flex-col">
+      <div className="my-10 flex items-center gap-3">
+      <p className="text-lg underline">Search: </p>
+      <input type="text" name="query" id="query" placeholder="search Billboard....." className=" w-6/12 outline-none justify-self-center  p-3 rounded-md border" />
+      </div>
       <div className="flex flex-col">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
@@ -37,7 +39,7 @@ const DataTable = ({headers, billboards}: {headers: billBoardTableRowProps[], bi
                         <Image src={billboard.imgUrl} alt="billboard" height={150} width={150} />
                       </td >
                       <td className="whitespace-nowrap px-6 py-4">
-                        <button type="button">
+                        <button type="button" className="bg-slate-500 p-2 rounded-md text-lg text-white hover:bg-teal-600" onClick={()=>{}}>
                           view More
                         </button>
                       </td>
