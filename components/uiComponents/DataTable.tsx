@@ -1,4 +1,8 @@
-import prismadb from "@/utils/prismadb";
+
+
+interface DataTableProps  {
+  Data
+}
 
 const DataTable = () => {
 

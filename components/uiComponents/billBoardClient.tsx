@@ -21,7 +21,7 @@ const BillBoardClient = () => {
   }, [])
 
 
-  const billboards = data?.length && data.map((billboard: billboard)=>({label: billboard.label, id: billboard.id, createdAt: billboard.createdAt, imgUrl: billboard.imgUrl}));
+  const billboards = data?.length && data.map((billboard: billboard)=>({label: billboard.label, id: billboard.id, imgUrl: billboard.imgUrl}));
 
   if(isLoading) return <h1>Billboards are loading......</h1>;
   if(error) return <h1>Failed to fetch Billboards</h1>;
