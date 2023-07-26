@@ -1,9 +1,8 @@
-import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { Category, CategoryTableRowProps } from "../types/CategoryColumns";
 
-const DataTable = ({headers, categories}: {headers: CategoryTableRowProps[], categories:Category[] }) => {
+const CategoryDataTable = ({headers, categories}: {headers: CategoryTableRowProps[], categories:Category[] }) => {
 
   const router = useRouter();
   const params = useParams();
@@ -43,7 +42,7 @@ const DataTable = ({headers, categories}: {headers: CategoryTableRowProps[], cat
                 </thead>
                 <tbody>
                    {
-                    filteredItems.length && filteredItems.map((category, i)=>(
+                    filteredItems.map((category, i)=>(
                       <tr key={category.id} className="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
                       <td className="whitespace-nowrap px-6 py-4 font-medium">
                       {i+1}
@@ -74,4 +73,4 @@ const DataTable = ({headers, categories}: {headers: CategoryTableRowProps[], cat
   );
 };
 
-export default DataTable;
+export default CategoryDataTable;

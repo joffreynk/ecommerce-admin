@@ -137,7 +137,7 @@ const CategoryPageForm = ({
       >
         <div className="flex flex-col gap-1">
           <label htmlFor="backgroundImage">billboard ID</label>
-          <select {...register("billboardId")} name="billboardId" className="w-4/12">
+          <select {...register("billboardId")} name="billboardId" className="w-4/12 text-lg ">
             <option  selected disabled>billboard ID </option>
             <option value="female">female</option>
             <option value="male">male</option>
@@ -156,7 +156,7 @@ const CategoryPageForm = ({
             disabled={loading}
             {...register("name")}
             defaultValue={initialData?.name}
-            className="border p-2 text-lg rounded-md outline-none w-72 md:w-96 "
+            className="border p-2 text-lg rounded-md outline-none w-4/12 md:w-96 "
           />
           {errors?.name && (
             <p className="text-orange-300 " role="alert">

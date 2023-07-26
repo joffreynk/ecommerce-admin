@@ -2,14 +2,11 @@
 import { useParams, useRouter } from "next/navigation";
 
 import Heading from "@/components/uiComponents/Heading";
-import DataTable from "./DataTable";
 import APIList from "./APIList";
 import { Category, CategoryTableRow } from "../types/CategoryColumns";
+import CategoryDataTable from "./CategoryDataTable";
 
 const CategoryClient = ({formattedcategories}: {formattedcategories:Category[]}) => {
-  console.log('====================================');
-  console.log(formattedcategories);
-  console.log('====================================');
   const router = useRouter();
   const params = useParams();
   
@@ -45,7 +42,7 @@ const CategoryClient = ({formattedcategories}: {formattedcategories:Category[]})
 
       <div className="h-[2px] my-6 w-full bg-slate-200" />
 
-      <DataTable headers={CategoryTableRow} categories={formattedcategories}  />
+      <CategoryDataTable headers={CategoryTableRow} categories={formattedcategories}  />
 
       <div className="h-[2px] my-6 w-full bg-slate-200" />
     <Heading

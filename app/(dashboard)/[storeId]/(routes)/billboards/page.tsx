@@ -10,7 +10,7 @@ export default async function Billboards({params}: {params: {storeId: string}}) 
     }
   })
 
-  const formattedBillboards = billboards?.length && billboards.map((billboard: BillBoard)=>({label: billboard.label, id: billboard.id, imgUrl: billboard.imgUrl}));
+  const formattedBillboards = billboards.map((billboard: BillBoard)=>({label: billboard.label, id: billboard.id, imgUrl: billboard.imgUrl}));
 
   return (
     <div className="flex-col">

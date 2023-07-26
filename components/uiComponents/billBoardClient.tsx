@@ -2,15 +2,15 @@
 import { useParams, useRouter } from "next/navigation";
 
 import Heading from "@/components/uiComponents/Heading";
-import DataTable from "./DataTable";
-import { billboard } from "@prisma/client";
-import { billBoardTableRow } from "../types/BillboardColumns";
+import DataTable from "./CategoryDataTable";
+import { BillBoard, billBoardTableRow } from "../types/BillboardColumns";
 import APIList from "./APIList";
+import { useEffect, useState } from "react";
+import BillBoardDataTable from "./BillBoardDataTable";
 
-const BillBoardClient = ({formattedBillboards}: {formattedBillboards: billboard[]}) => {
+const BillBoardClient = ({formattedBillboards}: {formattedBillboards: BillBoard[]}) => {
   const router = useRouter();
   const params = useParams();
-
 
   return (
     <>
@@ -44,7 +44,7 @@ const BillBoardClient = ({formattedBillboards}: {formattedBillboards: billboard[
 
       <div className="h-[2px] my-6 w-full bg-slate-200" />
 
-      <DataTable headers={billBoardTableRow} billboards={formattedBillboards}  />
+      <BillBoardDataTable headers={billBoardTableRow} billboards={formattedBillboards}  />
 
       <div className="h-[2px] my-6 w-full bg-slate-200" />
     <Heading
