@@ -64,6 +64,9 @@ export const GET = async (
       where: {
         storeId: params.storeId,
       },
+      orderBy: {
+        createdAt: 'desc'
+      }
     });
 
     return new NextResponse(JSON.stringify(billboards), { status: 201 });

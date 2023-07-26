@@ -1,5 +1,4 @@
 import BillBoardClient from "@/components/uiComponents/billBoardClient";
-import React from "react";
 
 
 function Billboards() {

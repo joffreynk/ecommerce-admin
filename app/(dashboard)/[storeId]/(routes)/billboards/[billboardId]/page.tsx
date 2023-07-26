@@ -1,6 +1,5 @@
 import BillBoardPageForm from "@/components/uiComponents/BillBoardPageForm";
 import prismadb from "@/utils/prismadb";
-import React from "react";
 
 const BillBoard = async ({ params }: { params: { billboardId: string } }) => {
   const billboard = await prismadb.billboard.findUnique({
