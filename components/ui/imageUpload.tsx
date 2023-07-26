@@ -24,9 +24,6 @@ const ImageUpload = ({
   }, []);
 
   const onUpload = (result: any) => {
-    console.log('====================================');
-    console.log('UPLOADING RESULTS: ' + result);
-    console.log('====================================');
     onChange(result.info.secure_url);
   };
 

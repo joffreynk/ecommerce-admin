@@ -47,7 +47,7 @@ const BillBoardPageForm = ({
     handleSubmit,
     register,
     setValue,
-    getValues,
+    watch,
     formState: { errors },
   } = useForm<BillBoardFormValues>({
     resolver: zodResolver(formSchema),
@@ -136,7 +136,7 @@ const BillBoardPageForm = ({
         <div className="flex flex-col gap-1">
           <label htmlFor="backgroundImage">Backgound Image</label>
           <ImageUpload
-          value={getValues('imgUrl').length ? [getValues('imgUrl')] : []} 
+          value={watch('imgUrl').length ? [watch('imgUrl')] : []} 
           disabled={loading}
           onChange={(url)=>(setValue('imgUrl', url))}
           onRemove={()=>(setValue('imgUrl', ''))}
