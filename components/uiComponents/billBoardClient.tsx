@@ -10,25 +10,27 @@ import { useEffect, useState } from "react";
 const BillBoardClient = () => {
   const router = useRouter();
   const params = useParams();
-  const [isMounted, setisMounted] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
+
   const fetcher = (...args: any) => fetch(...args).then((res) => res.json());
   const { data, error, isLoading } = useSWR(`/api/${params.storeId}/billboards`, fetcher);
 
 
   useEffect(()=>{
-    setisMounted(true);
+    setIsMounted(true);
   }, [])
-
-  if(!isMounted) return null;
 
 
   const billboards = data?.length && data.map((billboard: billboard)=>({label: billboard.label, id: billboard.id, createdAt: billboard.createdAt, imgUrl: billboard.imgUrl}));
+
+  if(isLoading) return <h1>Billboards are loading......</h1>;
+  if(error) return <h1>Failed to fetch Billboards</h1>;
 
   return (
     <>
       <div className="flex items-center justify-between">
         <Heading
-          title="Bill Boards (0)"
+          title={`BillBoards (${billboards.length})`}
           description="Maanage your billboards"
         />
         <button
