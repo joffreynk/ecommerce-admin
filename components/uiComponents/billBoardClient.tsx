@@ -59,7 +59,7 @@ const BillBoardClient = () => {
 
       <div className="h-[2px] my-6 w-full bg-slate-200" />
 
-      <DataTable headers={billBoardTableRow} billboards={billboards}  />
+      <DataTable headers={billBoardTableRow} router={router} billboards={billboards}  />
     </>
   );
 };
