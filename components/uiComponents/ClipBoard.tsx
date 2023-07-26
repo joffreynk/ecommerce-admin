@@ -2,10 +2,10 @@
 import Link from "next/link";
 import { toast } from "react-hot-toast";
 
-const ClipBoard = ({ title, url, variant }: { title: string; url: string, variant:'Public'|'Admin' }) => {
+const ClipBoard = ({ title, url, status }: { title: string; url: string, status:'Public'|'Admin' }) => {
   const ClipBoard = async () => {
     await navigator.clipboard.writeText(url);
-    toast.success("clipboard copied successfully");
+    toast.success("API copied successfully");
   };
 
   return (
@@ -26,8 +26,8 @@ const ClipBoard = ({ title, url, variant }: { title: string; url: string, varian
           />
         </svg>
 
-        <h3 className="text-md font-serif font-bold ">{title.toUpperCase()}</h3>
-        <p className={`${variant==='Public'?"bg-slate-400 ": "bg-red-950"}p-1 text-xs rounded-md `}>{variant}</p>
+        <h3 className="text-md font-serif font-bold mr-3 ">{title.toUpperCase()}</h3>
+        <p className={`${status === 'Public' ? "bg-slate-400 " : "bg-red-950 text-white"} p-1 text-md rounded-md `}>{status}</p>
       </div>
       <div className="flex justify-between items-center">
         <p className="flex items-center gap-4">

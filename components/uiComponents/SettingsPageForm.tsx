@@ -139,7 +139,7 @@ const SettingsPageForm = ({ initialData }: { initialData: store }) => {
       <ClipBoard
         title="NEXT_STORE_PUBLIC_API"
         url={`${origin}/api/${params.storeId}`}
-        variant="Public"
+        status="Public"
        />
     </>
   );

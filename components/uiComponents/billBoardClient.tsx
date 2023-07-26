@@ -7,6 +7,7 @@ import DataTable from "./DataTable";
 import { billboard } from "@prisma/client";
 import { useEffect, useState } from "react";
 import { billBoardTableRow } from "../types/BillboardColumns";
+import APIList from "./APIList";
 
 const BillBoardClient = () => {
   const router = useRouter();
@@ -59,7 +60,15 @@ const BillBoardClient = () => {
 
       <div className="h-[2px] my-6 w-full bg-slate-200" />
 
-      <DataTable headers={billBoardTableRow} router={router} billboards={billboards}  />
+      <DataTable headers={billBoardTableRow} billboards={billboards}  />
+
+      <div className="h-[2px] my-6 w-full bg-slate-200" />
+    <Heading
+    title="API List "
+    description="Possible API list for billboards"
+     />
+
+     <APIList entityId="billboardId" entityName="billboards" />
     </>
   );
 };
