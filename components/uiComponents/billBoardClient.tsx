@@ -2,6 +2,7 @@
 
 import Heading from "@/components/uiComponents/Heading";
 import { useParams, useRouter } from "next/navigation";
+import DataTable from "./DataTable";
 
 const BillBoardClient = () => {
   const router = useRouter();
@@ -15,7 +16,6 @@ const BillBoardClient = () => {
         />
         <button
           type="button"
-          //   disabled={loading}
             onClick={() =>router.push(`/${params.storeId}/billboards/new`)}
           className="bg-slate-700 p-2 rounded-md flex items-center justify-center text-white pr-4 "
         >
@@ -38,6 +38,8 @@ const BillBoardClient = () => {
       </div>
 
       <div className="h-[2px] my-2 w-full bg-white" />
+
+      <DataTable />
 
     </>
   );
