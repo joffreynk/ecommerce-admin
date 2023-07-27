@@ -2,8 +2,8 @@
 import { useParams, useRouter } from "next/navigation";
 
 import Heading from "@/components/uiComponents/Heading";
-import { BillBoard, billBoardTableRow } from "../types/BillboardColumns";
-import APIList from "./APIList";
+import { BillBoard, billBoardTableRow } from "../../types/BillboardColumns";
+import APIList from "../APIList";
 import BillBoardDataTable from "./BillBoardDataTable";
 
 const BillBoardClient = ({formattedBillboards}: {formattedBillboards: BillBoard[]}) => {

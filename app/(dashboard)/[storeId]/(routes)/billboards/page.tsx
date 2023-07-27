@@ -1,5 +1,5 @@
 import { BillBoard } from "@/components/types/BillboardColumns";
-import BillBoardClient from "@/components/uiComponents/billBoardClient";
+import BillBoardClient from "@/components/uiComponents/billboard/billBoardClient";
 import prismadb from "@/utils/prismadb";
 
 export default async function Billboards({params}: {params: {storeId: string}}) {
