@@ -1,5 +1,5 @@
 "use client";
-import { Combobox, Listbox, Transition } from '@headlessui/react'
+import { Combobox, Listbox, Transition } from "@headlessui/react";
 import Fragment, { useState } from "react";
 
 import Heading from "./Heading";
@@ -20,16 +20,30 @@ type CategoryFormValues = z.infer<typeof formSchema>;
 
 const CategoryPageForm = ({
   initialData,
-  billboards
+  billboards,
 }: {
   initialData: category | null;
   billboards: billboard[];
 }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [selected, setSelected] = useState(billboards[0])
   const router = useRouter();
   const params = useParams();
+
+  const {
+    handleSubmit,
+    register,
+    setValue,
+    formState: { errors },
+  } = useForm<CategoryFormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: initialData || { name: "", billboardId: "" },
+  });
+  const [selected, setSelected] = useState(billboards[0]);
+
+  const dowork = () => {
+    setValue("billboardId", selected.id);
+  };
 
   const title = initialData ? "Edit category" : "create new category";
   const description = initialData
@@ -42,21 +56,6 @@ const CategoryPageForm = ({
     ? "Failed to edit your category"
     : "Failed to create new category";
   const action = initialData ? "Save changes" : "Create";
-
-  const {
-    handleSubmit,
-    register,
-    setValue,
-    formState: { errors },
-  } = useForm<CategoryFormValues>({
-    resolver: zodResolver(formSchema),
-    defaultValues: initialData || { name: "", billboardId: "" },
-  });
-
-  const dowork = ()=> {
-    setValue('billboardId', selected.id)
-  }
-
 
   const onSubmit = async (data: CategoryFormValues) => {
     try {
@@ -146,37 +145,39 @@ const CategoryPageForm = ({
         <div className="flex flex-col gap-1">
           <label htmlFor="backgroundImage">billboard ID</label>
           <div className=" w-72">
-      <Listbox value={selected} onChange={setSelected}>
-        <div className="relative mt-1">
-          <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-            <span className="block truncate">{selected?.label}</span>
-          </Listbox.Button>
-          <Transition
-            as={'div'}
-            leave="transition ease-in duration-100"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-              {billboards.map((billboard: billboard) => (
-                <Listbox.Option
-                  key={billboard.id}
-                  onClick={dowork}
-                  className={({ active }) =>
-                    `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                      active ? 'bg-amber-100 text-amber-900' : 'text-gray-900'
-                    }`
-                  }
-                  value={billboard}
+            <Listbox value={selected} onChange={setSelected}>
+              <div className="relative mt-1">
+                <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                  <span className="block truncate">{selected?.label}</span>
+                </Listbox.Button>
+                <Transition
+                  as={"div"}
+                  leave="transition ease-in duration-100"
+                  leaveFrom="opacity-100"
+                  leaveTo="opacity-0"
                 >
-                  {billboard?.label}
-                </Listbox.Option>
-              ))}
-            </Listbox.Options>
-          </Transition>
-        </div>
-      </Listbox>
-    </div>
+                  <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                    {billboards.map((billboard: billboard) => (
+                      <Listbox.Option
+                        key={billboard.id}
+                        onClick={dowork}
+                        className={({ active }) =>
+                          `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                            active
+                              ? "bg-amber-100 text-amber-900"
+                              : "text-gray-900"
+                          }`
+                        }
+                        value={billboard}
+                      >
+                        {billboard?.label}
+                      </Listbox.Option>
+                    ))}
+                  </Listbox.Options>
+                </Transition>
+              </div>
+            </Listbox>
+          </div>
           {errors?.billboardId && (
             <p className="text-orange-300 " role="alert">
               Billboard ID must be exist
