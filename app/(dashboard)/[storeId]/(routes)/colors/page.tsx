@@ -1,23 +1,23 @@
 import { format } from "date-fns";
 
-import SizeClient from "@/components/uiComponents/size/SizeClient";
 import prismadb from "@/utils/prismadb";
-import { size } from "@prisma/client";
+import { color } from "@prisma/client";
+import ColorClient from "@/components/uiComponents/color/ColorClient";
 
-export default async function SizeS({params}: {params: {storeId: string}}) {
-  const sizes = await prismadb.size.findMany({
+export default async function Colors({params}: {params: {storeId: string}}) {
+  const colors = await prismadb.color.findMany({
     where: {storeId: params.storeId},
     orderBy: {
       createdAt: 'desc'
     }
   })
 
-  const formattedSizes = sizes.map((size: size)=>({id: size.id, name: size.name, value: size.value, createdAt: format(size.createdAt, 'MMM dd, yyyy')}));
+  const formattedcolors = colors.map((color: color)=>({id: color.id, name: color.name, value: color.value, createdAt: format(color.createdAt, 'MMM dd, yyyy')}));
 
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <SizeClient sizes={formattedSizes}  />
+        <ColorClient colors={formattedcolors}  />
       </div>
     </div>
   );
