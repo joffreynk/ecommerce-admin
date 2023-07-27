@@ -34,6 +34,7 @@ const CategoryPageForm = ({
     handleSubmit,
     register,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm<CategoryFormValues>({
     resolver: zodResolver(formSchema),
@@ -74,6 +75,7 @@ const CategoryPageForm = ({
         });
       }
       router.push(`/${params.storeId}/categories/`);
+      router.refresh()
       toast.success(toastmessageSuccess);
     } catch (error: any) {
       toast.error(toastmessageError);
@@ -90,6 +92,7 @@ const CategoryPageForm = ({
         headers: { "Content-Type": "application/json" },
       });
       router.push(`/${params.storeId}/categories/`);
+      router.refresh()
       toast.success("Successfully deleted the Category");
     } catch (error: any) {
       toast.error(
@@ -99,6 +102,23 @@ const CategoryPageForm = ({
       setLoading(false);
     }
   };
+
+  if(billboards.length<1) {
+    return (<AlertModal
+    isOpen={!open}
+    onClose={() => {
+      setOpen(false)
+      router.push(`/${params.storeId}/categories`)
+    }}
+    onConfirm={()=>{
+      setOpen(false)
+      router.push(`/${params.storeId}/billboards/new`)
+    }}
+    loading={loading}
+    title="Don't have any Billboards"
+    description="You have to create a billboard before you create a category."
+  />)
+  }
 
   return (
     <>

@@ -28,13 +28,13 @@ const BillBoardPageForm = ({
   const router = useRouter();
   const params = useParams();
 
-  const title = initialData ? "Edit bill Board" : "crate bill Board";
+  const title = initialData ? "Edit your billBoard" : "create a billBoard";
   const description = initialData
-    ? "Edit your existing bill Board"
+    ? "Edit your existing billBoard"
     : "create new bill Board for your store";
   const toastmessageSuccess = initialData
     ? "You have successfully Edited your bill Board"
-    : "You have successfully created a new bill Board";
+    : "You have successfully created a new billBoard";
   const toastmessageError = initialData
     ? "Failed to edit your bill board"
     : "Failed to create new bill board";
@@ -68,6 +68,7 @@ const BillBoardPageForm = ({
         });
       }
       router.push(`/${params.storeId}/billboards/`);
+      router.refresh()
       toast.success(toastmessageSuccess);
     } catch (error: any) {
       toast.error(toastmessageError);
@@ -84,6 +85,7 @@ const BillBoardPageForm = ({
         headers: { "Content-Type": "application/json" },
       });
       router.push(`/${params.storeId}/billboards/`);
+      router.refresh()
       toast.success("Successfully deleted the billboard");
     } catch (error: any) {
       toast.error("Failed billboard, Make sure all categories uses this billboard has been deleted");

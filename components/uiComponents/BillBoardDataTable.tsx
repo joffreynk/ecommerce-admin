@@ -54,7 +54,7 @@ const BillBoardDataTable = ({headers, billboards}: {headers: billBoardTableRowPr
                       </td >
 
                       <td className="whitespace-nowrap px-6 py-4">
-                        <button type="button" className="bg-slate-500 p-2 rounded-md text-lg text-white hover:bg-teal-600" onClick={() => router.push(`/${params.storeId}/billboards/${billboard.id}`)}>
+                        <button type="button" className="bg-slate-500 p-2 rounded-md text-lg text-white hover:bg-teal-600" onClick={() => router.push(`/${params.storeId}/billboards/${billbaord.id}`)}>
                           view More
                         </button>
                       </td>
