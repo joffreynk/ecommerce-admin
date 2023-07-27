@@ -2,7 +2,7 @@
 import { useParams, useRouter } from "next/navigation";
 
 import Heading from "@/components/uiComponents/Heading";
-import { BillBoard, billBoardTableRow } from "../../types/BillboardColumns";
+import { BillBoard, billBoardTableRow } from "@/components/types/BillboardColumns";
 import APIList from "../APIList";
 import BillBoardDataTable from "./BillBoardDataTable";
 

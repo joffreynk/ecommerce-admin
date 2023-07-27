@@ -1,4 +1,3 @@
-import prismadb from '@/utils/prismadb'
 import { getStore } from '@/utils/protectuser'
 import React from 'react'
 

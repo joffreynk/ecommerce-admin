@@ -3,9 +3,10 @@
 import { Fragment, useState } from "react";
 import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { useParams, useRouter } from "next/navigation";
+
 import { store } from "@prisma/client";
 import { useStoreModal } from "@/hooks/useStoreModal";
-import { useParams, useRouter } from "next/navigation";
 
 export default function StoreSwitcher({ items = [] }: { items: store[] }) {
   const [query, setQuery] = useState("");

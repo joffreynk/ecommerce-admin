@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
-import { BillBoard, billBoardTableRowProps } from "../types/BillboardColumns";
+import { BillBoard, billBoardTableRowProps } from "@/components/types/BillboardColumns";
 
 const BillBoardDataTable = ({headers, billboards}: {headers: billBoardTableRowProps[], billboards:BillBoard[] }) => {
 

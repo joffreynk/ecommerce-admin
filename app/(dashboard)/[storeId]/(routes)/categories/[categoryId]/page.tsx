@@ -1,4 +1,4 @@
-import CategoryPageForm from "@/components/uiComponents/CategoryPageForm";
+import CategoryPageForm from "@/components/uiComponents/category/CategoryPageForm";
 import prismadb from "@/utils/prismadb";
 
 const Category = async ({ params }: { params: { categoryId: string, storeId: string } }) => {

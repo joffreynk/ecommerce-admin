@@ -1,14 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
-import Heading from "./Heading";
-import { store } from "@prisma/client";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
-import AlertModal from "../modals/AlertModal";
+
+import Heading from "@/components/uiComponents/Heading";
+import { store } from "@prisma/client";
+import AlertModal from "@/components/modals/AlertModal";
 import ClipBoard from "@/components/uiComponents/ClipBoard";
 import useOrigin from "@/utils/use-origin";
 

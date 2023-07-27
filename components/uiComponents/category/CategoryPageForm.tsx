@@ -1,15 +1,16 @@
 "use client";
-import { Combobox, Listbox, Transition } from "@headlessui/react";
-import Fragment, { useState } from "react";
 
-import Heading from "./Heading";
-import { billboard, category } from "@prisma/client";
+import { Listbox, Transition } from "@headlessui/react";
+import  { useState } from "react";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
-import AlertModal from "../modals/AlertModal";
+
+import Heading from "@/components/uiComponents/Heading";
+import { billboard, category } from "@prisma/client";
+import AlertModal from "@/components/modals/AlertModal";
 
 const formSchema = z.object({
   name: z.string().min(2),

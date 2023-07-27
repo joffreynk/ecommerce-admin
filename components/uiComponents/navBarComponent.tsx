@@ -1,4 +1,5 @@
-import { UserButton, auth } from "@clerk/nextjs"
+import { UserButton } from "@clerk/nextjs"
+
 import MainNav from "@/components/uiComponents/mainNav"
 import StoreSwitcher from "@/components/uiComponents/storeSwitcher"
 import prismadb from "@/utils/prismadb"

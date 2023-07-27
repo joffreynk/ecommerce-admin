@@ -1,6 +1,6 @@
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
-import { Category, CategoryTableRowProps } from "../types/CategoryColumns";
+import { Category, CategoryTableRowProps } from "@/components/types/CategoryColumns";
 
 const CategoryDataTable = ({headers, categories}: {headers: CategoryTableRowProps[], categories:Category[] }) => {
 

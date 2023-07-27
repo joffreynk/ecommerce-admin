@@ -2,9 +2,9 @@
 import { useParams, useRouter } from "next/navigation";
 
 import Heading from "@/components/uiComponents/Heading";
-import APIList from "../APIList";
-import { Category, CategoryTableRow } from "../../types/CategoryColumns";
-import CategoryDataTable from "./CategoryDataTable";
+import APIList from "@/components/uiComponents/APIList";
+import { Category, CategoryTableRow } from "@/components/types/CategoryColumns";
+import CategoryDataTable from "@/components/uiComponents/category/CategoryDataTable";
 
 const CategoryClient = ({formattedcategories}: {formattedcategories:Category[]}) => {
   const router = useRouter();

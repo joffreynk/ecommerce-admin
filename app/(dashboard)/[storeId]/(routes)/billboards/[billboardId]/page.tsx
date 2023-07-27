@@ -1,4 +1,4 @@
-import BillBoardPageForm from "@/components/uiComponents/BillBoardPageForm";
+import BillBoardPageForm from "@/components/uiComponents/billboard/BillBoardPageForm";
 import prismadb from "@/utils/prismadb";
 
 const BillBoard = async ({ params }: { params: { billboardId: string } }) => {

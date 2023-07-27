@@ -1,15 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
-import Heading from "./Heading";
+import Heading from "@/components/uiComponents/Heading";
 import { billboard } from "@prisma/client";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
-import AlertModal from "../modals/AlertModal";
-import ImageUpload from "./imageUpload";
+import AlertModal from "@/components/modals/AlertModal";
+import ImageUpload from "@/components/uiComponents/imageUpload";
 
 const formSchema = z.object({
   label: z.string().min(2),

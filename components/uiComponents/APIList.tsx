@@ -1,7 +1,7 @@
 import { useParams } from "next/navigation";
 
 import useOrigin from "@/utils/use-origin";
-import ClipBoard from "./ClipBoard";
+import ClipBoard from "@/components/uiComponents/ClipBoard";
 
 interface APIListProps {
   entityName: string;
