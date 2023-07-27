@@ -4,28 +4,28 @@ import { NextResponse } from "next/server";
 
 export const GET = async (
   req: Request,
-  { params }: { params: { sizeId: string } }
+  { params }: { params: { colorId: string } }
 ) => {
   try {
-    if (!params.sizeId) {
-      return new NextResponse("Size ID is requequired", { status: 400 });
+    if (!params.colorId) {
+      return new NextResponse("color ID is requequired", { status: 400 });
     }
 
-    const size = await prismadb.size.findFirst({
+    const color = await prismadb.color.findFirst({
       where: {
-        id: params.sizeId,
+        id: params.colorId,
       },
     });
-    return new NextResponse(JSON.stringify(size), { status: 201 });
+    return new NextResponse(JSON.stringify(color), { status: 201 });
   } catch (error: any) {
-    console.log("[GET SIZE ERROR]", error);
+    console.log("[GET COLOR ERROR]", error);
     return new NextResponse(error.message, { status: 500 });
   }
 };
 
 export const PATCH = async (
   req: Request,
-  { params }: { params: { storeId: string; sizeId: string } }
+  { params }: { params: { storeId: string; colorId: string } }
 ) => {
   try {
     const { userId } = auth();
@@ -36,10 +36,10 @@ export const PATCH = async (
     }
 
     if (!name.length) {
-      return new NextResponse("Label name must be provided", { status: 400 });
+      return new NextResponse("color name must be provided", { status: 400 });
     }
     if (!value.length) {
-      return new NextResponse("Image URL must be provided", { status: 400 });
+      return new NextResponse("color value must be provided", { status: 400 });
     }
 
     if (!params.storeId) {
@@ -57,13 +57,13 @@ export const PATCH = async (
       return new NextResponse("UnAuthorized request", { status: 403 });
     }
 
-    if (!params.sizeId) {
-      return new NextResponse("size ID is requequired", { status: 400 });
+    if (!params.colorId) {
+      return new NextResponse("color ID is requequired", { status: 400 });
     }
 
-    const size = await prismadb.size.updateMany({
+    const color = await prismadb.color.updateMany({
       where: {
-        id: params.sizeId,
+        id: params.colorId,
         storeId: params.storeId,
       },
       data: {
@@ -73,16 +73,16 @@ export const PATCH = async (
       },
     });
 
-    return new NextResponse(JSON.stringify(size), { status: 201 });
+    return new NextResponse(JSON.stringify(color), { status: 201 });
   } catch (error: any) {
-    console.log("[PATCH SIZE ERROR]", error);
+    console.log("[PATCH COLOR ERROR]", error);
     return new NextResponse(error.message, { status: 500 });
   }
 };
 
 export const DELETE = async (
   req: Request,
-  { params }: { params: { storeId: string; sizeId: string } }
+  { params }: { params: { storeId: string; colorId: string } }
 ) => {
   try {
     const { userId } = auth();
@@ -106,19 +106,19 @@ export const DELETE = async (
       return new NextResponse("UnAuthorized request", { status: 403 });
     }
 
-    if (!params.sizeId) {
-      return new NextResponse("Size ID is requequired", { status: 400 });
+    if (!params.colorId) {
+      return new NextResponse("color ID is requequired", { status: 400 });
     }
 
-    const size = await prismadb.size.deleteMany({
+    const color = await prismadb.color.deleteMany({
       where: {
-        id: params.sizeId,
+        id: params.colorId,
         storeId: params.storeId,
       },
     });
-    return new NextResponse(JSON.stringify(size), { status: 201 });
+    return new NextResponse(JSON.stringify(color), { status: 201 });
   } catch (error: any) {
-    console.log("[DELETE SIZE ERROR]", error);
+    console.log("[DELETE COLOR ERROR]", error);
     return new NextResponse(error.message, { status: 500 });
   }
 };
