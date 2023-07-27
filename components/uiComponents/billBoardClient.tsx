@@ -2,10 +2,8 @@
 import { useParams, useRouter } from "next/navigation";
 
 import Heading from "@/components/uiComponents/Heading";
-import DataTable from "./CategoryDataTable";
 import { BillBoard, billBoardTableRow } from "../types/BillboardColumns";
 import APIList from "./APIList";
-import { useEffect, useState } from "react";
 import BillBoardDataTable from "./BillBoardDataTable";
 
 const BillBoardClient = ({formattedBillboards}: {formattedBillboards: BillBoard[]}) => {
@@ -52,7 +50,7 @@ const BillBoardClient = ({formattedBillboards}: {formattedBillboards: BillBoard[
     description="Possible API list for billboards"
      />
 
-     <APIList entityId="billboardId" entityName="billboards" />
+     <APIList title="BillBoard" entityId="billboardId" entityName="billboards" />
     </>
   );
 };

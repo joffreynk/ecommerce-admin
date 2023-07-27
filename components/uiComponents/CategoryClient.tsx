@@ -50,7 +50,7 @@ const CategoryClient = ({formattedcategories}: {formattedcategories:Category[]})
     description="Possible API list for categories"
      />
 
-     <APIList entityId="categoryId" entityName="categories" />
+     <APIList title="Category" entityId="categoryId" entityName="categories" />
     </>
   );
 };
