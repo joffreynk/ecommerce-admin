@@ -2,7 +2,7 @@ import { BillBoard } from "@/components/types/BillboardColumns";
 import BillBoardClient from "@/components/uiComponents/billboard/billBoardClient";
 import prismadb from "@/utils/prismadb";
 
-export default async function Billboards({params}: {params: {storeId: string}}) {
+export default async function SizeS({params}: {params: {storeId: string}}) {
   const billboards = await prismadb.billboard.findMany({
     where: {storeId: params.storeId},
     orderBy: {

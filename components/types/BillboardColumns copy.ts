@@ -2,7 +2,6 @@ export interface BillBoard {
   id: string;
   label: string;
   imgUrl: string;
-  createdAt: string;
 }
 
 export interface billBoardTableRowProps {
@@ -16,14 +15,13 @@ export const billBoardTableRow = [
     header: "#",
   },
   {
-    accessor: "label",
-    header: "Label",
+    accessor: "name",
+    header: "Name",
   },
   {
-    accessor: "imgUrl",
-    header: "Image",
+    accessor: "value",
+    header: "Value",
   },
-  ,
   {
     accessor: "createdAt",
     header: "Created At",

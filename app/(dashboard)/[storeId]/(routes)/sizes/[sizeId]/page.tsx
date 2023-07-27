@@ -1,7 +1,7 @@
 import BillBoardPageForm from "@/components/uiComponents/billboard/BillBoardPageForm";
 import prismadb from "@/utils/prismadb";
 
-const BillBoard = async ({ params }: { params: { billboardId: string } }) => {
+const Size = async ({ params }: { params: { billboardId: string } }) => {
   const billboard = await prismadb.billboard.findUnique({
     where: {
       id: params.billboardId,
@@ -16,4 +16,4 @@ const BillBoard = async ({ params }: { params: { billboardId: string } }) => {
   );
 };
 
-export default BillBoard;
+export default Size;

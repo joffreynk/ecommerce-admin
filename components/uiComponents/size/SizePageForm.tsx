@@ -1,40 +1,41 @@
 "use client";
 
 import React, { useState } from "react";
-import Heading from "@/components/uiComponents/Heading";
-import { billboard } from "@prisma/client";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
+
+import Heading from "@/components/uiComponents/Heading";
+import { size } from "@prisma/client";
 import AlertModal from "@/components/modals/AlertModal";
-import ImageUpload from "@/components/uiComponents/imageUpload";
+
 
 const formSchema = z.object({
-  label: z.string().min(2),
-  imgUrl: z.string().min(7),
+  name: z.string().min(2),
+  value: z.string().min(2),
 });
 
-type BillBoardFormValues = z.infer<typeof formSchema>;
+type SizeFormValues = z.infer<typeof formSchema>;
 
-const BillBoardPageForm = ({
+const SizePageForm = ({
   initialData,
 }: {
-  initialData: billboard | null;
+  initialData: size | null;
 }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const params = useParams();
 
-  const title = initialData ? "Edit your billBoard" : "create a billBoard";
+  const title = initialData ? "Edit your Size" : "create a Size";
   const description = initialData
-    ? "Edit your existing billBoard"
+    ? "Edit your existing Size"
     : "create new bill Board for your store";
   const toastmessageSuccess = initialData
     ? "You have successfully Edited your bill Board"
-    : "You have successfully created a new billBoard";
+    : "You have successfully created a new Size";
   const toastmessageError = initialData
     ? "Failed to edit your bill board"
     : "Failed to create new bill board";
@@ -43,31 +44,29 @@ const BillBoardPageForm = ({
   const {
     handleSubmit,
     register,
-    setValue,
-    watch,
     formState: { errors },
-  } = useForm<BillBoardFormValues>({
+  } = useForm<SizeFormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData || { label: "", imgUrl: "" },
+    defaultValues: initialData || { name: "", value: "" },
   });
 
-  const onSubmit = async (data: BillBoardFormValues) => {
+  const onSubmit = async (data: SizeFormValues) => {
     try {
       setLoading(true);
       if (initialData) {
-        await fetch(`/api/${params.storeId}/billboards/${params.billboardId}`, {
+        await fetch(`/api/${params.storeId}/sizes/${params.sizeId}`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
       } else {
-        await fetch(`/api/${params.storeId}/billboards`, {
+        await fetch(`/api/${params.storeId}/sizes`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
       }
-      router.push(`/${params.storeId}/billboards/`);
+      router.push(`/${params.storeId}/sizes`);
       router.refresh()
       toast.success(toastmessageSuccess);
     } catch (error: any) {
@@ -80,15 +79,15 @@ const BillBoardPageForm = ({
   const onDelete = async () => {
     try {
       setLoading(true);
-      await fetch(`/api/${params.storeId}/billboards/${params.billboardId}`, {
+      await fetch(`/api/${params.storeId}/sizes/${params.sizeId}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       });
-      router.push(`/${params.storeId}/billboards/`);
+      router.push(`/${params.storeId}/sizes/`);
       router.refresh()
-      toast.success("Successfully deleted the billboard");
+      toast.success("Successfully deleted the size");
     } catch (error: any) {
-      toast.error("Failed billboard, Make sure all categories uses this billboard has been deleted");
+      toast.error("Failed to delete size, Make sure you passed the correct parameters");
     } finally {
       setLoading(false);
     }
@@ -102,7 +101,7 @@ const BillBoardPageForm = ({
         onConfirm={onDelete}
         loading={loading}
         title="Are you sure you?"
-        description="This action cannot be reverted. It will delete current Billboard"
+        description="This action cannot be reverted. It will delete current Size"
       />
       <div className="flex items-center justify-between">
         <Heading title={title} description={description} />
@@ -134,19 +133,19 @@ const BillBoardPageForm = ({
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col px-2 gap-6 py-4"
+        className="flex  px-2 gap-6 py-4"
       >
         <div className="flex flex-col gap-1">
-          <label htmlFor="backgroundImage">Backgound Image</label>
-          <ImageUpload
-            value={watch("imgUrl").length ? [watch("imgUrl")] : []}
+          <label htmlFor="backgroundImage">Size Name</label>
+          <input
             disabled={loading}
-            onChange={(url) => setValue("imgUrl", url)}
-            onRemove={() => setValue("imgUrl", "")}
+            {...register("name")}
+            defaultValue={initialData?.name}
+            className="border p-2 text-lg rounded-md outline-none w-72 md:w-96 "
           />
-          {errors?.imgUrl && (
+          {errors?.name && (
             <p className="text-orange-300 " role="alert">
-              Bill Board image must be exist
+              Size Name must be exist
             </p>
           )}
         </div>
@@ -155,13 +154,13 @@ const BillBoardPageForm = ({
           <label htmlFor="backgroundImage">Label</label>
           <input
             disabled={loading}
-            {...register("label")}
-            defaultValue={initialData?.label}
+            {...register("value")}
+            defaultValue={initialData?.value}
             className="border p-2 text-lg rounded-md outline-none w-72 md:w-96 "
           />
-          {errors?.label && (
+          {errors?.value && (
             <p className="text-orange-300 " role="alert">
-              Bill Board name must be at least 2 characters
+              Size value must be at least 2 characters
             </p>
           )}
         </div>
@@ -181,4 +180,4 @@ const BillBoardPageForm = ({
   );
 };
 
-export default BillBoardPageForm;
+export default SizePageForm;

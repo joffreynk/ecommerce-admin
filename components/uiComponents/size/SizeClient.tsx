@@ -4,9 +4,9 @@ import { useParams, useRouter } from "next/navigation";
 import Heading from "@/components/uiComponents/Heading";
 import { BillBoard, billBoardTableRow } from "@/components/types/BillboardColumns";
 import APIList from "../APIList";
-import BillBoardDataTable from "./BillBoardDataTable";
+import BillBoardDataTable from "./SizeDataTable";
 
-const BillBoardClient = ({formattedBillboards}: {formattedBillboards: BillBoard[]}) => {
+const SizeClient = ({formattedBillboards}: {formattedBillboards: BillBoard[]}) => {
   const router = useRouter();
   const params = useParams();
 
@@ -55,4 +55,4 @@ const BillBoardClient = ({formattedBillboards}: {formattedBillboards: BillBoard[
   );
 };
 
-export default BillBoardClient;
+export default SizeClient;

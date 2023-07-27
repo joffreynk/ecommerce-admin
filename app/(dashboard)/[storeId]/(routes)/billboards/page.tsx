@@ -1,6 +1,7 @@
 import { BillBoard } from "@/components/types/BillboardColumns";
 import BillBoardClient from "@/components/uiComponents/billboard/billBoardClient";
 import prismadb from "@/utils/prismadb";
+import { format } from "date-fns";
 
 export default async function Billboards({params}: {params: {storeId: string}}) {
   const billboards = await prismadb.billboard.findMany({
@@ -10,7 +11,7 @@ export default async function Billboards({params}: {params: {storeId: string}}) 
     }
   })
 
-  const formattedBillboards = billboards.map((billboard: BillBoard)=>({label: billboard.label, id: billboard.id, imgUrl: billboard.imgUrl}));
+  const formattedBillboards = billboards.map((billboard: any)=>({label: billboard.label,createdAt: format(billboard.createdAt, "MMM dd, yyyy")  ,id: billboard.id, imgUrl: billboard.imgUrl}));
 
   return (
     <div className="flex-col">
