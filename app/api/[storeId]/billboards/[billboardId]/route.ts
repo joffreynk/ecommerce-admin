@@ -11,7 +11,7 @@ export const GET = async (
       return new NextResponse("Billboard ID is requequired", { status: 400 });
     }
 
-    const billboard = await prismadb.billboard.deleteMany({
+    const billboard = await prismadb.billboard.findFirst({
       where: {
         id: params.billboardId,
       },

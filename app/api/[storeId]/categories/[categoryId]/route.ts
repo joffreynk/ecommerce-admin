@@ -4,21 +4,21 @@ import { NextResponse } from "next/server";
 
 export const GET = async (
   req: Request,
-  { params }: { params: { billboardId: string } }
+  { params }: { params: { categoryId: string } }
 ) => {
   try {
-    if (!params.billboardId) {
+    if (!params.categoryId) {
       return new NextResponse("Billboard ID is requequired", { status: 400 });
     }
 
-    const billboard = await prismadb.billboard.deleteMany({
+    const category = await prismadb.category.findFirst({
       where: {
-        id: params.billboardId,
+        id: params.categoryId,
       },
     });
-    return new NextResponse(JSON.stringify(billboard), { status: 201 });
+    return new NextResponse(JSON.stringify(category), { status: 201 });
   } catch (error: any) {
-    console.log("[GET BILLBOARD ERROR]", error);
+    console.log("[GET CATEGORY ERROR]", error);
     return new NextResponse(error.message, { status: 500 });
   }
 };
