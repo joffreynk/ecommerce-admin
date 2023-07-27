@@ -22,7 +22,7 @@ const ColorDataTable = ({headers, colors}: {headers: ColorTableRowProps[], color
     <div className="flex flex-col">
       <div className="my-10 flex items-center gap-3">
       <p className="text-lg underline">Search: </p>
-      <input type="text" name="query" id="query" onChange={(e)=>setQuery(e.target.value)} placeholder="search size....." className=" w-6/12 outline-none justify-self-center  p-3 rounded-md border" />
+      <input type="text" name="query" id="query" onChange={(e)=>setQuery(e.target.value)} placeholder="search color....." className=" w-6/12 outline-none justify-self-center  p-3 rounded-md border" />
       </div>
       <div className="flex flex-col">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -42,16 +42,16 @@ const ColorDataTable = ({headers, colors}: {headers: ColorTableRowProps[], color
                 </thead>
                 <tbody>
                    {
-                    filteredItems.map((size, i)=>(
-                      <tr key={size.id} className="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
+                    filteredItems.map((color, i)=>(
+                      <tr key={color.id} className="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
                       <td className="whitespace-nowrap px-6 py-4 font-medium">
                       {i+1}
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4">{size.name}</td>
-                      <td className="whitespace-nowrap px-6 py-4">{size.value} </td >
-                      <td className="whitespace-nowrap px-6 py-4">{size.createdAt} </td >
+                      <td className="whitespace-nowrap px-6 py-4">{color.name}</td>
+                      <td className="whitespace-nowrap px-6 py-4">{color.value} </td >
+                      <td className="whitespace-nowrap px-6 py-4">{color.createdAt} </td >
                       <td className="whitespace-nowrap px-6 py-4">
-                        <button type="button" className="bg-slate-500 p-2 rounded-md text-lg text-white hover:bg-teal-600" onClick={() => router.push(`/${params.storeId}/sizes/${size.id}`)}>
+                        <button type="button" className="bg-slate-500 p-2 rounded-md text-lg text-white hover:bg-teal-600" onClick={() => router.push(`/${params.storeId}/colors/${color.id}`)}>
                           view More
                         </button>
                       </td>
