@@ -8,34 +8,36 @@ import { useParams, useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 
 import Heading from "@/components/uiComponents/Heading";
-import { size } from "@prisma/client";
+import { color } from "@prisma/client";
 import AlertModal from "@/components/modals/AlertModal";
 
 
 const formSchema = z.object({
   name: z.string().min(1),
-  value: z.string().min(1),
+  value: z.string().min(4).regex(/^#/, {
+    message: "Color value must be a valid hex code color"
+  }),
 });
 
-type SizeFormValues = z.infer<typeof formSchema>;
+type ColorFormValues = z.infer<typeof formSchema>;
 
-const SizePageForm = ({
+const ColorPageForm = ({
   initialData,
 }: {
-  initialData: size | null;
+  initialData: color | null;
 }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const params = useParams();
 
-  const title = initialData ? "Edit your Size" : "create a Size";
+  const title = initialData ? "Edit your Color" : "create a Color";
   const description = initialData
-    ? "Edit your existing Size"
+    ? "Edit your existing Color"
     : "create new bill Board for your store";
   const toastmessageSuccess = initialData
     ? "You have successfully Edited your bill Board"
-    : "You have successfully created a new Size";
+    : "You have successfully created a new Color";
   const toastmessageError = initialData
     ? "Failed to edit your bill board"
     : "Failed to create new bill board";
@@ -44,29 +46,30 @@ const SizePageForm = ({
   const {
     handleSubmit,
     register,
+    getValues,
     formState: { errors },
-  } = useForm<SizeFormValues>({
+  } = useForm<ColorFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || { name: "", value: "" },
   });
 
-  const onSubmit = async (data: SizeFormValues) => {
+  const onSubmit = async (data: ColorFormValues) => {
     try {
       setLoading(true);
       if (initialData) {
-        await fetch(`/api/${params.storeId}/sizes/${params.sizeId}`, {
+        await fetch(`/api/${params.storeId}/colors/${params.colorId}`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
       } else {
-        await fetch(`/api/${params.storeId}/sizes`, {
+        await fetch(`/api/${params.storeId}/colors`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
       }
-      router.push(`/${params.storeId}/sizes`);
+      router.push(`/${params.storeId}/colors`);
       router.refresh()
       toast.success(toastmessageSuccess);
     } catch (error: any) {
@@ -79,15 +82,15 @@ const SizePageForm = ({
   const onDelete = async () => {
     try {
       setLoading(true);
-      await fetch(`/api/${params.storeId}/sizes/${params.sizeId}`, {
+      await fetch(`/api/${params.storeId}/colors/${params.colorId}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       });
-      router.push(`/${params.storeId}/sizes/`);
+      router.push(`/${params.storeId}/colors/`);
       router.refresh()
-      toast.success("Successfully deleted the size");
+      toast.success("Successfully deleted the color");
     } catch (error: any) {
-      toast.error("Failed to delete size, Make sure you passed the correct parameters");
+      toast.error("Failed to delete color, Make sure you passed the correct parameters");
     } finally {
       setLoading(false);
     }
@@ -101,7 +104,7 @@ const SizePageForm = ({
         onConfirm={onDelete}
         loading={loading}
         title="Are you sure you?"
-        description="This action cannot be reverted. It will delete current Size"
+        description="This action cannot be reverted. It will delete current color"
       />
       <div className="flex items-center justify-between">
         <Heading title={title} description={description} />
@@ -137,7 +140,7 @@ const SizePageForm = ({
       >
         <div className="flex gap-10">
         <div className="flex flex-col gap-1">
-          <label htmlFor="backgroundImage">Size Name</label>
+          <label htmlFor="backgroundImage">Color Name</label>
           <input
             disabled={loading}
             {...register("name")}
@@ -146,22 +149,26 @@ const SizePageForm = ({
           />
           {errors?.name && (
             <p className="text-orange-300 " role="alert">
-              Size Name must be exist
+              Color Name must be exist
             </p>
           )}
         </div>
 
         <div className="flex flex-col gap-1">
-          <label htmlFor="backgroundImage">Size Value</label>
+          <label htmlFor="backgroundImage">Color Value</label>
+          <div>
+
           <input
             disabled={loading}
             {...register("value")}
             defaultValue={initialData?.value}
             className="border p-2 text-lg rounded-md outline-none w-72 md:w-96 "
           />
+          <div className="w-6 h-6 rounded-full" style={{background: getValues('value')}} />
+          </div>
           {errors?.value && (
             <p className="text-orange-300 " role="alert">
-              Size value must be at least 2 characters
+              Color value must be at least 2 characters
             </p>
           )}
         </div>
@@ -182,4 +189,4 @@ const SizePageForm = ({
   );
 };
 
-export default SizePageForm;
+export default ColorPageForm;
