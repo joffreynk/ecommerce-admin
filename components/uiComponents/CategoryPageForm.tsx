@@ -91,10 +91,10 @@ const CategoryPageForm = ({
         headers: { "Content-Type": "application/json" },
       });
       router.push(`/${params.storeId}/categories/`);
-      toast.success("Successfully deleted the billboard");
+      toast.success("Successfully deleted the Category");
     } catch (error: any) {
       toast.error(
-        "Failed billboard, Make sure all categories uses this billboard has been deleted"
+        "Failed to delete The category, Make sure all products uses this Category have been deleted"
       );
     } finally {
       setLoading(false);
@@ -109,7 +109,7 @@ const CategoryPageForm = ({
         onConfirm={onDelete}
         loading={loading}
         title="Are you sure you?"
-        description="This action cannot be reverted. It will delete current Billboard"
+        description="This action cannot be reverted. It will delete current Category"
       />
       <div className="flex items-center justify-between">
         <Heading title={title} description={description} />
