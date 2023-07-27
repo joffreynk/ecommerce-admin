@@ -48,7 +48,10 @@ const ColorDataTable = ({headers, colors}: {headers: ColorTableRowProps[], color
                       {i+1}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">{color.name}</td>
-                      <td className="whitespace-nowrap px-6 py-4">{color.value} </td >
+                      <td className="whitespace-nowrap px-6 py-4 flex items-center gap-3">
+                        <p>{color.value}</p> 
+                        <div className="w-8 h-8 rounded-full border" style={{background: color.value}} />
+                      </td >
                       <td className="whitespace-nowrap px-6 py-4">{color.createdAt} </td >
                       <td className="whitespace-nowrap px-6 py-4">
                         <button type="button" className="bg-slate-500 p-2 rounded-md text-lg text-white hover:bg-teal-600" onClick={() => router.push(`/${params.storeId}/colors/${color.id}`)}>
