@@ -47,6 +47,7 @@ const ColorPageForm = ({
     handleSubmit,
     register,
     getValues,
+    watch,
     formState: { errors },
   } = useForm<ColorFormValues>({
     resolver: zodResolver(formSchema),
@@ -156,7 +157,7 @@ const ColorPageForm = ({
 
         <div className="flex flex-col gap-1">
           <label htmlFor="backgroundImage">Color Value</label>
-          <div>
+          <div className="flex gap-3 items-center">
 
           <input
             disabled={loading}
@@ -164,11 +165,11 @@ const ColorPageForm = ({
             defaultValue={initialData?.value}
             className="border p-2 text-lg rounded-md outline-none w-72 md:w-96 "
           />
-          <div className="w-6 h-6 rounded-full" style={{background: getValues('value')}} />
+          <div className="w-8 h-8 rounded-full border" style={{background: watch('value')}} />
           </div>
           {errors?.value && (
             <p className="text-orange-300 " role="alert">
-              Color value must be at least 2 characters
+             Color value must be a valid hex code color
             </p>
           )}
         </div>
