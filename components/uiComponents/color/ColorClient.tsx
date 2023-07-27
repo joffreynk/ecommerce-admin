@@ -3,10 +3,10 @@ import { useParams, useRouter } from "next/navigation";
 
 import Heading from "@/components/uiComponents/Heading";
 import APIList from "@/components/uiComponents/APIList";
-import SizeDataTable from "@/components/uiComponents/size/SizeDataTable";
-import { Size, sizeTableRow } from "@/components/types/SizeColumns";
+import { Color, colorTableRow } from "@/components/types/ColorColumns";
+import ColorDataTable from "./ColorDataTable";
 
-const SizeClient = ({sizes}: {sizes: Size[]}) => {
+const ColorClient = ({colors}: {colors: Color[]}) => {
   const router = useRouter();
   const params = useParams();
 
@@ -14,12 +14,12 @@ const SizeClient = ({sizes}: {sizes: Size[]}) => {
     <>
       <div className="flex items-center justify-between">
         <Heading
-          title={`Sizes (${sizes.length})`}
-          description="Maanage your sizes"
+          title={`Colors (${colors.length})`}
+          description="Maanage your colors"
         />
         <button
           type="button"
-          onClick={() => router.push(`/${params.storeId}/sizes/new`)}
+          onClick={() => router.push(`/${params.storeId}/colors/new`)}
           className="bg-slate-700 p-2 rounded-md flex items-center justify-center text-white pr-4 "
         >
           <svg
@@ -42,17 +42,17 @@ const SizeClient = ({sizes}: {sizes: Size[]}) => {
 
       <div className="h-[2px] my-6 w-full bg-slate-200" />
 
-      <SizeDataTable headers={sizeTableRow} sizes={sizes}  />
+      <ColorDataTable headers={colorTableRow} colors={colors}  />
 
       <div className="h-[2px] my-6 w-full bg-slate-200" />
     <Heading
     title="API List "
-    description="Possible API list for sizes"
+    description="Possible API list for colors"
      />
 
-     <APIList title="Size" entityId="sizeId" entityName="sizes" />
+     <APIList title="Color" entityId="colorId" entityName="colors" />
     </>
   );
 };
 
-export default SizeClient;
+export default ColorClient;

@@ -1,10 +1,8 @@
-import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
-import { BillBoard, billBoardTableRowProps } from "@/components/types/BillboardColumns";
-import { Size } from "@/components/types/SizeColumns";
 
-const SizeDataTable = ({headers, sizes}: {headers: billBoardTableRowProps[], sizes:Size[] }) => {
+import { Color, ColorTableRowProps } from "@/components/types/ColorColumns";
+const ColorDataTable = ({headers, colors}: {headers: ColorTableRowProps[], colors:Color[] }) => {
 
   const router = useRouter();
   const params = useParams();
@@ -12,8 +10,8 @@ const SizeDataTable = ({headers, sizes}: {headers: billBoardTableRowProps[], siz
 
   const filteredItems =
     query === ""
-      ? sizes
-      : sizes.filter((item: Size) =>
+      ? colors
+      : colors.filter((item: Color) =>
           item.name
             .toLowerCase()
             .replace(/\s+/g, "")
@@ -71,4 +69,4 @@ const SizeDataTable = ({headers, sizes}: {headers: billBoardTableRowProps[], siz
   );
 };
 
-export default SizeDataTable;
+export default ColorDataTable;
