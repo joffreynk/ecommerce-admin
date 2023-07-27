@@ -2,8 +2,9 @@ import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { BillBoard, billBoardTableRowProps } from "@/components/types/BillboardColumns";
+import { Size } from "@/components/types/SizeColumns";
 
-const SizeDataTable = ({headers, billboards}: {headers: billBoardTableRowProps[], billboards:BillBoard[] }) => {
+const SizeDataTable = ({headers, sizes}: {headers: billBoardTableRowProps[], sizes:Size[] }) => {
 
   const router = useRouter();
   const params = useParams();
@@ -11,9 +12,9 @@ const SizeDataTable = ({headers, billboards}: {headers: billBoardTableRowProps[]
 
   const filteredItems =
     query === ""
-      ? billboards
-      : billboards.filter((item: BillBoard) =>
-          item.label
+      ? sizes
+      : sizes.filter((item: Size) =>
+          item.name
             .toLowerCase()
             .replace(/\s+/g, "")
             .includes(query.toLowerCase().replace(/\s+/g, ""))
@@ -43,18 +44,16 @@ const SizeDataTable = ({headers, billboards}: {headers: billBoardTableRowProps[]
                 </thead>
                 <tbody>
                    {
-                    filteredItems.map((billbaord, i)=>(
-                      <tr key={billbaord.id} className="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
+                    filteredItems.map((size, i)=>(
+                      <tr key={size.id} className="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
                       <td className="whitespace-nowrap px-6 py-4 font-medium">
                       {i+1}
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4">{billbaord.label}</td>
+                      <td className="whitespace-nowrap px-6 py-4">{size.name}</td>
+                      <td className="whitespace-nowrap px-6 py-4">{size.value} </td >
+                      <td className="whitespace-nowrap px-6 py-4">{size.createdAt} </td >
                       <td className="whitespace-nowrap px-6 py-4">
-                      <Image src={billbaord.imgUrl} width={150} height={150} alt="billbaord" />
-                      </td >
-
-                      <td className="whitespace-nowrap px-6 py-4">
-                        <button type="button" className="bg-slate-500 p-2 rounded-md text-lg text-white hover:bg-teal-600" onClick={() => router.push(`/${params.storeId}/billboards/${billbaord.id}`)}>
+                        <button type="button" className="bg-slate-500 p-2 rounded-md text-lg text-white hover:bg-teal-600" onClick={() => router.push(`/${params.storeId}/sizes/${size.id}`)}>
                           view More
                         </button>
                       </td>

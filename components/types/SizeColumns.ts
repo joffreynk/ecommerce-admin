@@ -1,15 +1,16 @@
-export interface BillBoard {
+export interface Size {
   id: string;
-  label: string;
-  imgUrl: string;
+  name: string;
+  value: string;
+  createdAt: string;
 }
 
-export interface billBoardTableRowProps {
+export interface SizeTableRowProps {
   accessor: string;
   header: string;
 }
 
-export const billBoardTableRow = [
+export const sizeTableRow = [
   {
     accessor: "id",
     header: "#",

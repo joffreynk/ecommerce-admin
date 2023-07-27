@@ -133,7 +133,7 @@ const SizePageForm = ({
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex  px-2 gap-6 py-4"
+        className="flex px-2 gap-6 py-4"
       >
         <div className="flex flex-col gap-1">
           <label htmlFor="backgroundImage">Size Name</label>
@@ -151,7 +151,7 @@ const SizePageForm = ({
         </div>
 
         <div className="flex flex-col gap-1">
-          <label htmlFor="backgroundImage">Label</label>
+          <label htmlFor="backgroundImage">Size Value</label>
           <input
             disabled={loading}
             {...register("value")}
@@ -164,7 +164,7 @@ const SizePageForm = ({
             </p>
           )}
         </div>
-        <div className="flex items-center gap-5 text-lg">
+        <div className="flex items-center gap-5 text-lg justify-self-start">
           <button
             disabled={loading}
             className="bg-slate-600 rounded-xl px-4 py-2 hover:bg-green-900 text-white"

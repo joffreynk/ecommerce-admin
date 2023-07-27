@@ -2,11 +2,11 @@
 import { useParams, useRouter } from "next/navigation";
 
 import Heading from "@/components/uiComponents/Heading";
-import { BillBoard, billBoardTableRow } from "@/components/types/BillboardColumns";
-import APIList from "../APIList";
-import BillBoardDataTable from "./SizeDataTable";
+import APIList from "@/components/uiComponents/APIList";
+import SizeDataTable from "@/components/uiComponents/size/SizeDataTable";
+import { Size, sizeTableRow } from "@/components/types/SizeColumns";
 
-const SizeClient = ({formattedBillboards}: {formattedBillboards: BillBoard[]}) => {
+const SizeClient = ({sizes}: {sizes: Size[]}) => {
   const router = useRouter();
   const params = useParams();
 
@@ -14,12 +14,12 @@ const SizeClient = ({formattedBillboards}: {formattedBillboards: BillBoard[]}) =
     <>
       <div className="flex items-center justify-between">
         <Heading
-          title={`BillBoards (${formattedBillboards.length})`}
-          description="Maanage your billboards"
+          title={`Sizes (${sizes.length})`}
+          description="Maanage your sizes"
         />
         <button
           type="button"
-          onClick={() => router.push(`/${params.storeId}/billboards/new`)}
+          onClick={() => router.push(`/${params.storeId}/sizes/new`)}
           className="bg-slate-700 p-2 rounded-md flex items-center justify-center text-white pr-4 "
         >
           <svg
@@ -42,15 +42,15 @@ const SizeClient = ({formattedBillboards}: {formattedBillboards: BillBoard[]}) =
 
       <div className="h-[2px] my-6 w-full bg-slate-200" />
 
-      <BillBoardDataTable headers={billBoardTableRow} billboards={formattedBillboards}  />
+      <SizeDataTable headers={sizeTableRow} sizes={sizes}  />
 
       <div className="h-[2px] my-6 w-full bg-slate-200" />
     <Heading
     title="API List "
-    description="Possible API list for billboards"
+    description="Possible API list for sizes"
      />
 
-     <APIList title="BillBoard" entityId="billboardId" entityName="billboards" />
+     <APIList title="Size" entityId="sizeId" entityName="sizes" />
     </>
   );
 };

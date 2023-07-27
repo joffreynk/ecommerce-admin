@@ -1,21 +1,23 @@
-import { BillBoard } from "@/components/types/BillboardColumns";
-import BillBoardClient from "@/components/uiComponents/billboard/billBoardClient";
+import { format } from "date-fns";
+
+import SizeClient from "@/components/uiComponents/size/SizeClient";
 import prismadb from "@/utils/prismadb";
+import { size } from "@prisma/client";
 
 export default async function SizeS({params}: {params: {storeId: string}}) {
-  const billboards = await prismadb.billboard.findMany({
+  const sizes = await prismadb.size.findMany({
     where: {storeId: params.storeId},
     orderBy: {
       createdAt: 'desc'
     }
   })
 
-  const formattedBillboards = billboards.map((billboard: BillBoard)=>({label: billboard.label, id: billboard.id, imgUrl: billboard.imgUrl}));
+  const formattedSizes = sizes.map((size: size)=>({id: size.id, name: size.name, value: size.value, createdAt: format(size.createdAt, 'MMM dd, yyyy')}));
 
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <BillBoardClient formattedBillboards={formattedBillboards}  />
+        <SizeClient sizes={formattedSizes}  />
       </div>
     </div>
   );
