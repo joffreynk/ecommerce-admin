@@ -36,10 +36,10 @@ export const PATCH = async (
     }
 
     if (!name.length) {
-      return new NextResponse("Label name must be provided", { status: 400 });
+      return new NextResponse("Size name must be provided", { status: 400 });
     }
     if (!value.length) {
-      return new NextResponse("Image URL must be provided", { status: 400 });
+      return new NextResponse("Size value must be provided", { status: 400 });
     }
 
     if (!params.storeId) {
