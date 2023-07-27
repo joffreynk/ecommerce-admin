@@ -48,9 +48,9 @@ const ColorDataTable = ({headers, colors}: {headers: ColorTableRowProps[], color
                       {i+1}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">{color.name}</td>
-                      <td className="whitespace-nowrap px-6 py-4 flex items-center gap-3">
+                      <td className="whitespace-nowrap px-6 py-4 flex items-center gap-5">
                         <p>{color.value}</p> 
-                        <div className="w-8 h-8 rounded-full border" style={{background: color.value}} />
+                        <div className="w-6 h-6 rounded-full border" style={{background: color.value}} />
                       </td >
                       <td className="whitespace-nowrap px-6 py-4">{color.createdAt} </td >
                       <td className="whitespace-nowrap px-6 py-4">
