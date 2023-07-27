@@ -13,8 +13,8 @@ import AlertModal from "@/components/modals/AlertModal";
 
 
 const formSchema = z.object({
-  name: z.string().min(2),
-  value: z.string().min(2),
+  name: z.string().min(1),
+  value: z.string().min(1),
 });
 
 type SizeFormValues = z.infer<typeof formSchema>;

@@ -4,16 +4,16 @@ import { NextResponse } from "next/server";
 
 export const GET = async (
   req: Request,
-  { params }: { params: { siezId: string } }
+  { params }: { params: { sizeId: string } }
 ) => {
   try {
-    if (!params.siezId) {
+    if (!params.sizeId) {
       return new NextResponse("Size ID is requequired", { status: 400 });
     }
 
     const size = await prismadb.size.findFirst({
       where: {
-        id: params.siezId,
+        id: params.sizeId,
       },
     });
     return new NextResponse(JSON.stringify(size), { status: 201 });
