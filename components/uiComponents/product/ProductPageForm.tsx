@@ -65,7 +65,7 @@ const ProductPageForm = ({ initialData }: { initialData: any }) => {
         }
       : {
           name: "",
-          price: 0,
+          price: "",
           sizeId: "",
           colorId: "",
           categoryId: "",
@@ -200,13 +200,13 @@ const ProductPageForm = ({ initialData }: { initialData: any }) => {
           </div>
 
           <div className="flex flex-col gap-1 w-72 ">
-            <label
-              htmlFor="category_id"
-              className=""
-            >
+            <label htmlFor="category_id" className="">
               Choose a category
             </label>
-            <select className=" mb-6 py-2 text-md text-gray-900 border border-gray-300 rounded-lg outline-none">
+            <select
+              {...register("categoryId")}
+              className=" mb-6 py-2 text-md text-gray-900 border border-gray-300 rounded-lg outline-none"
+            >
               <option value="US">United States</option>
               <option value="CA">Canada</option>
               <option value="FR">France</option>
@@ -214,17 +214,17 @@ const ProductPageForm = ({ initialData }: { initialData: any }) => {
             </select>
             {errors?.name && (
               <p className="text-orange-300 " role="alert">
-                Product name must be at least 2 characters
+                Category id must exist
               </p>
             )}
           </div>
 
           <div className="flex flex-col gap-1 w-72 ">
-            <label
-              htmlFor="size_id" >
-              Choose Size
-            </label>
-            <select className=" mb-6 py-2 text-md text-gray-900 border border-gray-300 rounded-lg outline-none">
+            <label htmlFor="size_id">Choose Size</label>
+            <select
+              {...register("sizeId")}
+              className=" mb-6 py-2 text-md text-gray-900 border border-gray-300 rounded-lg outline-none"
+            >
               <option value="US">United States</option>
               <option value="CA">Canada</option>
               <option value="FR">France</option>
@@ -232,11 +232,71 @@ const ProductPageForm = ({ initialData }: { initialData: any }) => {
             </select>
             {errors?.name && (
               <p className="text-orange-300 " role="alert">
-                Product name must be at least 2 characters
+                Size Id must exist
+              </p>
+            )}
+          </div>
+        </div>
+
+        <div className="flex gap-7">
+          <div className="flex flex-col gap-1">
+            <label htmlFor="backgroundImage">Price</label>
+            <input
+              disabled={loading}
+              {...register("price")}
+              placeholder="9.99"
+              className="border p-2 text-lg rounded-md outline-none w-72 md:w-96 "
+            />
+            {errors?.name && (
+              <p className="text-orange-300 " role="alert">
+                Product price is required
               </p>
             )}
           </div>
 
+          <div className="flex flex-col gap-1 w-72 ">
+            <label htmlFor="category_id" className="">
+              Choose a category
+            </label>
+            <select
+              {...register("colorId")}
+              className="mb-6 py-2 text-md text-gray-900 border border-gray-300 rounded-lg outline-none"
+            >
+              <option value="US">United States</option>
+              <option value="CA">Canada</option>
+              <option value="FR">France</option>
+              <option value="DE">Germany</option>
+            </select>
+            {errors?.name && (
+              <p className="text-orange-300 " role="alert">
+                Product color is required
+              </p>
+            )}
+          </div>
+
+          <div className="flex flex-col gap-1 w-72 pl-20 ">
+            <p>product status</p>
+            <div className="flex flex-col  gap-4">
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input
+                  type="checkbox" className="sr-only peer" {...register("isFeatured")} defaultChecked={watch("isFeatured")}/>
+                <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                  Featured
+                </span>
+              </label>
+
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input
+                  type="checkbox" className="sr-only peer" {...register("isArchived")} defaultChecked={watch("isArchived")}/>
+                <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                  Archived
+                </span>
+              </label>
+
+            </div>
+          </div>
         </div>
 
         <div className="flex items-center gap-5 text-lg">
