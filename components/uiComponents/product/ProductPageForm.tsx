@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Heading from "@/components/uiComponents/Heading";
-import { Product } from "@prisma/client";
+import { Image, Product } from "@prisma/client";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,18 +13,27 @@ import ImageUpload from "@/components/uiComponents/imageUpload";
 
 const formSchema = z.object({
   name: z.string().min(1),
-  price: z.string().min(1),
-  category:z.string().min(1),
-  color: z.string().min(1),
-  size: z.string().min(1),
+  price: z.coerce.number().min(1),
+  categoryId:z.string().min(1),
+  colorId: z.string().min(1),
+  sizeId: z.string().min(1),
+  images: z.object({url: z.string()}).array(),
+  isFeatured: z.boolean().default(true).optional(),
+  isArchived: z.boolean().default(false).optional(),
 });
 
 type ProductFormValues = z.infer<typeof formSchema>;
 
+interface ProductFormProps {
+  initialData: Product & {
+    imgaes: Image[],
+  } | null;
+}
+ 
 const ProductPageForm = ({
   initialData,
 }: {
-  initialData: Product | null;
+  initialData: ProductFormProps
 }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -51,12 +60,18 @@ const ProductPageForm = ({
     formState: { errors },
   } = useForm<ProductFormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData || {
+    defaultValues: initialData ? {
+      ...initialData,
+      price: 0,
+    } : {
       name: "",
-      price: "",
-      size: "",
-      color: "",
-      category: "",
+      price: 0,
+      sizeId: "",
+      colorId: "",
+      categoryId: "",
+      images: [],
+      isArchived: false,
+      isFeatured: true,
     } ,
   });
 
