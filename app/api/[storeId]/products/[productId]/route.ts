@@ -8,7 +8,7 @@ export const GET = async (
 ) => {
   try {
     if (!params.productId) {
-      return new NextResponse("Billboard ID is requequired", { status: 400 });
+      return new NextResponse("Product ID is requequired", { status: 400 });
     }
 
     const product = await prismadb.product.findFirst({
@@ -133,7 +133,7 @@ export const PATCH = async (
 
 export const DELETE = async (
   req: Request,
-  { params }: { params: { storeId: string; billboardId: string } }
+  { params }: { params: { storeId: string; productId: string } }
 ) => {
   try {
     const { userId } = auth();
@@ -157,19 +157,19 @@ export const DELETE = async (
       return new NextResponse("UnAuthorized request", { status: 403 });
     }
 
-    if (!params.billboardId) {
-      return new NextResponse("Billboard ID is requequired", { status: 400 });
+    if (!params.productId) {
+      return new NextResponse("Product ID is requequired", { status: 400 });
     }
 
-    const billboard = await prismadb.billboard.deleteMany({
+    const product = await prismadb.product.deleteMany({
       where: {
-        id: params.billboardId,
+        id: params.productId,
         storeId: params.storeId,
       },
     });
-    return new NextResponse(JSON.stringify(billboard), { status: 201 });
+    return new NextResponse(JSON.stringify(product), { status: 201 });
   } catch (error: any) {
-    console.log("[DELETE BILLBOARD ERROR]", error);
+    console.log("[DELETE PRODUCT ERROR]", error);
     return new NextResponse(error.message, { status: 500 });
   }
 };
