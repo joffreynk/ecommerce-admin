@@ -72,7 +72,7 @@ export const POST = async (
 
     return new NextResponse(JSON.stringify(product), { status: 201 });
   } catch (error: any) {
-    console.log("[CREATE BILLBOARDS ERROR]", error);
+    console.log("[CREATE PRODUCTS ERROR]", error);
     return new NextResponse(error.message, { status: 500 });
   }
 };
@@ -82,22 +82,42 @@ export const GET = async (
   { params }: { params: { storeId: string } }
 ) => {
   try {
+
+    const {searchParams} = new URL(req.url)
+
+    const categoryId = searchParams.get("categoryId") || undefined
+    const colorId = searchParams.get("colorId") || undefined
+    const sizeId = searchParams.get("sizeId") || undefined
+    const isFeatured = searchParams.get("isFeatured")
+    
     if (!params.storeId) {
       return new NextResponse("Store ID is requequired", { status: 400 });
     }
 
-    const billboards = await prismadb.billboard.findMany({
+    const products = await prismadb.product.findMany({
       where: {
         storeId: params.storeId,
+        colorId,
+        sizeId,
+        categoryId,
+        isFeatured: isFeatured ? true : undefined,
+        isArchived: false,
       },
+      include: {
+        images: true,
+        color: true,
+        category: true,
+        size: true,
+      },
+
       orderBy: {
         createdAt: 'desc'
       }
     });
 
-    return new NextResponse(JSON.stringify(billboards), { status: 201 });
+    return new NextResponse(JSON.stringify(products), { status: 201 });
   } catch (error: any) {
-    console.log("[GET BILLBOARDS ERROR]", error);
+    console.log("[GET PRODUCTS ERROR]", error);
     return new NextResponse(error.message, { status: 500 });
   }
 };
