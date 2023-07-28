@@ -1,4 +1,4 @@
-import BillBoardPageForm from "@/components/uiComponents/billboard/BillBoardPageForm";
+import ProductPageForm from "@/components/uiComponents/product/ProductPageForm";
 import prismadb from "@/utils/prismadb";
 
 const Product = async ({ params }: { params: { productId: string } }) => {
@@ -10,7 +10,7 @@ const Product = async ({ params }: { params: { productId: string } }) => {
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <BillBoardPageForm initialData={product} />
+        <ProductPageForm initialData={product} />
       </div>
     </div>
   );

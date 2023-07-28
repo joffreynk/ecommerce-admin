@@ -1,4 +1,4 @@
-import BillBoardClient from "@/components/uiComponents/billboard/billBoardClient";
+import ProductClient from "@/components/uiComponents/product/ProductClient";
 import { formatter } from "@/utils/currencyFormatter";
 import prismadb from "@/utils/prismadb";
 import { format } from "date-fns";
@@ -33,7 +33,7 @@ export default async function Products({params}: {params: {storeId: string}}) {
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <BillBoardClient data={formatedProducts}  />
+        <ProductClient data={formatedProducts}  />
       </div>
     </div>
   );

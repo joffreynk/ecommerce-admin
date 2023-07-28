@@ -2,11 +2,11 @@
 import { useParams, useRouter } from "next/navigation";
 
 import Heading from "@/components/uiComponents/Heading";
-import { BillBoard, billBoardTableRow } from "@/components/types/BillboardColumns";
 import APIList from "../APIList";
-import BillBoardDataTable from "./ProductDataTable";
+import ProductDataTable from "./ProductDataTable";
+import { ProductProps, productTableRow } from "@/components/types/productColumns";
 
-const ProductClient = ({formattedBillboards}: {formattedBillboards: BillBoard[]}) => {
+const ProductClient = ({data}: {data: ProductProps[]}) => {
   const router = useRouter();
   const params = useParams();
 
@@ -14,7 +14,7 @@ const ProductClient = ({formattedBillboards}: {formattedBillboards: BillBoard[]}
     <>
       <div className="flex items-center justify-between">
         <Heading
-          title={`BillBoards (${formattedBillboards.length})`}
+          title={`BillBoards (${data.length})`}
           description="Maanage your billboards"
         />
         <button
@@ -42,7 +42,7 @@ const ProductClient = ({formattedBillboards}: {formattedBillboards: BillBoard[]}
 
       <div className="h-[2px] my-6 w-full bg-slate-200" />
 
-      <BillBoardDataTable headers={billBoardTableRow} billboards={formattedBillboards}  />
+      <ProductDataTable headers={productTableRow} data={data}  />
 
       <div className="h-[2px] my-6 w-full bg-slate-200" />
     <Heading
