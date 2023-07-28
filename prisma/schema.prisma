@@ -100,7 +100,6 @@ model Product {
   @@index([colorId])
 }
 
-
 model Image {
   id String @id @default(uuid())
   productId String

@@ -155,7 +155,6 @@ const ProductPageForm = ({ initialData, colors, categories, sizes }: { initialDa
         )}
       </div>
       <div className="h-[2px] my-6 w-full bg-slate-200" />
-
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col px-2 gap-6 py-4"

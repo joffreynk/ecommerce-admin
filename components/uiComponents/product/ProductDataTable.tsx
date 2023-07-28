@@ -22,7 +22,7 @@ const ProductDataTable = ({headers, data}: {headers: ProductTableRowProps[], dat
     <div className="flex flex-col">
       <div className="my-10 flex items-center gap-3">
       <p className="text-lg underline">Search: </p>
-      <input type="text" name="query" id="query" onChange={(e)=>setQuery(e.target.value)} placeholder="search products....." className=" w-6/12 outline-none justify-self-center  p-3 rounded-md border" />
+      <input type="text" name="query" id="query" onChange={(e)=>setQuery(e.target.value)} placeholder="search product....." className=" w-6/12 outline-none justify-self-center  p-3 rounded-md border" />
       </div>
       <div className="flex flex-col">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -63,7 +63,7 @@ const ProductDataTable = ({headers, data}: {headers: ProductTableRowProps[], dat
                       </td>
                     </tr>
                     )) : (<tr >
-                      <td rowSpan={8} className="flex items-center justify-center py-5">
+                      <td rowSpan={11/12} className="flex items-center justify-center py-5">
                       No data Found
                       </td>
                     </tr>)
