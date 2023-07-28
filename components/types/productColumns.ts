@@ -45,8 +45,8 @@ export const productTableRow = [
     header: "Featured",
   },
   {
-    accessor: "isArhived",
-    header: "Arhived",
+    accessor: "isArchived",
+    header: "Archived",
   },
   {
     accessor: "createdAt",

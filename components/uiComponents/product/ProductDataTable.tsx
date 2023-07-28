@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { ProductProps, ProductTableRowProps } from "@/components/types/productColumns";
@@ -23,7 +22,7 @@ const ProductDataTable = ({headers, data}: {headers: ProductTableRowProps[], dat
     <div className="flex flex-col">
       <div className="my-10 flex items-center gap-3">
       <p className="text-lg underline">Search: </p>
-      <input type="text" name="query" id="query" onChange={(e)=>setQuery(e.target.value)} placeholder="search Billboard....." className=" w-6/12 outline-none justify-self-center  p-3 rounded-md border" />
+      <input type="text" name="query" id="query" onChange={(e)=>setQuery(e.target.value)} placeholder="search products....." className=" w-6/12 outline-none justify-self-center  p-3 rounded-md border" />
       </div>
       <div className="flex flex-col">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -50,17 +49,24 @@ const ProductDataTable = ({headers, data}: {headers: ProductTableRowProps[], dat
                       {i+1}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">{item.name}</td>
-                      <td className="whitespace-nowrap px-6 py-4">
-                      <Image src={item.imgUrl} width={150} height={150} alt="billbaord" />
-                      </td >
+                      <td className="whitespace-nowrap px-6 py-4">{item.price}</td >
+                      <td className="whitespace-nowrap px-6 py-4">{item.category}</td>
+                      <td className="whitespace-nowrap px-6 py-4">{item.size}</td>
+                      <td className="whitespace-nowrap px-6 py-4">{item.color}</td>
+                      <td className="whitespace-nowrap px-6 py-4">{item.isFeatured}</td>
+                      <td className="whitespace-nowrap px-6 py-4">{item.isArchived}</td>
                       <td className="whitespace-nowrap px-6 py-4">{item.createdAt}</td>
                       <td className="whitespace-nowrap px-6 py-4">
-                        <button type="button" className="bg-slate-500 p-2 rounded-md text-lg text-white hover:bg-teal-600" onClick={() => router.push(`/${params.storeId}/billboards/${billbaord.id}`)}>
+                        <button type="button" className="bg-slate-500 p-2 rounded-md text-lg text-white hover:bg-teal-600" onClick={() => router.push(`/${params.storeId}/products/${item.id}`)}>
                           view More
                         </button>
                       </td>
                     </tr>
-                    )) : (<p>No data Found</p>)
+                    )) : (<tr >
+                      <td rowSpan={8} className="flex items-center justify-center py-5">
+                      No data Found
+                      </td>
+                    </tr>)
                    }
                  
                 </tbody>
