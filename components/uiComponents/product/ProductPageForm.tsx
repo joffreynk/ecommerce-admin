@@ -18,7 +18,7 @@ const formSchema = z.object({
 
 type BillBoardFormValues = z.infer<typeof formSchema>;
 
-const BillBoardPageForm = ({
+const ProductPageForm = ({
   initialData,
 }: {
   initialData: billboard | null;
@@ -181,4 +181,4 @@ const BillBoardPageForm = ({
   );
 };
 
-export default BillBoardPageForm;
+export default ProductPageForm;

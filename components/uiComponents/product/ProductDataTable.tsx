@@ -3,7 +3,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { BillBoard, billBoardTableRowProps } from "@/components/types/BillboardColumns";
 
-const BillBoardDataTable = ({headers, billboards}: {headers: billBoardTableRowProps[], billboards:BillBoard[] }) => {
+const ProductDataTable = ({headers, billboards}: {headers: billBoardTableRowProps[], billboards:BillBoard[] }) => {
 
   const router = useRouter();
   const params = useParams();
@@ -72,4 +72,4 @@ const BillBoardDataTable = ({headers, billboards}: {headers: billBoardTableRowPr
   );
 };
 
-export default BillBoardDataTable;
+export default ProductDataTable;
