@@ -1,39 +1,21 @@
 import BillBoardClient from "@/components/uiComponents/billboard/billBoardClient";
-import { formatter } from "@/utils/currencyFormatter";
 import prismadb from "@/utils/prismadb";
 import { format } from "date-fns";
 
-
-export default async function Products({params}: {params: {storeId: string}}) {
-  const products = await prismadb.product.findMany({
+export default async function Billboards({params}: {params: {storeId: string}}) {
+  const billboards = await prismadb.billboard.findMany({
     where: {storeId: params.storeId},
-    include: {
-      color: true,
-      category: true,
-      size: true,
-    },
     orderBy: {
       createdAt: 'desc'
     }
   })
 
-  const formatedProducts = products.map((item: any)=>({
-    id: item.id,
-    name: item.name,
-    isFeatured: item.isFeatured,
-    isArachived: item.isArachived,
-    price: formatter.format(item.price),
-    category: item.category.name,
-    color: item.color.value,
-    size: item.size.name,
-    createdAt: format(item.createdAt, "MMM dd, yyyy")
-
-  }));
+  const formattedBillboards = billboards.map((billboard: any)=>({label: billboard.label,createdAt: format(billboard.createdAt, "MMM dd, yyyy")  ,id: billboard.id, imgUrl: billboard.imgUrl}));
 
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <BillBoardClient data={formatedProducts}  />
+        <BillBoardClient formattedBillboards={formattedBillboards}  />
       </div>
     </div>
   );
