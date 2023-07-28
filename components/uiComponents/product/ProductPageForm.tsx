@@ -59,10 +59,7 @@ const ProductPageForm = ({ initialData, colors, categories, sizes }: { initialDa
   } = useForm<ProductFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData
-      ? {
-          ...initialData,
-          price: 0,
-        }
+      ? initialData
       : {
           name: "",
           price: "",
@@ -212,7 +209,7 @@ const ProductPageForm = ({ initialData, colors, categories, sizes }: { initialDa
               ))
              }
             </select>
-            {errors?.name && (
+            {errors?.categoryId && (
               <p className="text-orange-300 " role="alert">
                 Category id must exist
               </p>
@@ -231,7 +228,7 @@ const ProductPageForm = ({ initialData, colors, categories, sizes }: { initialDa
               ))
              }
             </select>
-            {errors?.name && (
+            {errors?.sizeId && (
               <p className="text-orange-300 " role="alert">
                 Size Id must exist
               </p>
@@ -243,14 +240,14 @@ const ProductPageForm = ({ initialData, colors, categories, sizes }: { initialDa
           <div className="flex flex-col gap-1">
             <label htmlFor="backgroundImage">Price</label>
             <input
-              disabled={loading}
+               defaultValue={initialData?.price}
               {...register("price")}
               placeholder="9.99"
               className="border p-2 text-lg rounded-md outline-none w-72 md:w-96 "
             />
-            {errors?.name && (
+            {errors?.price && (
               <p className="text-orange-300 " role="alert">
-                Product price is required
+                Product price is required and must be a decimal
               </p>
             )}
           </div>
@@ -269,7 +266,7 @@ const ProductPageForm = ({ initialData, colors, categories, sizes }: { initialDa
               ))
              }
             </select>
-            {errors?.name && (
+            {errors?.colorId && (
               <p className="text-orange-300 " role="alert">
                 Product color is required
               </p>

@@ -50,7 +50,7 @@ const ProductClient = ({data}: {data: ProductProps[]}) => {
     description="Possible API list for products"
      />
 
-     <APIList title="Products" entityId="productId" entityName="products" />
+     <APIList title="Product" entityId="productId" entityName="products" />
     </>
   );
 };
