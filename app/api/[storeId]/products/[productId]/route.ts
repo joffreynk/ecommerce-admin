@@ -32,22 +32,37 @@ export const GET = async (
 
 export const PATCH = async (
   req: Request,
-  { params }: { params: { storeId: string; billboardId: string } }
+  { params }: { params: { storeId: string; productId: string } }
 ) => {
   try {
     const { userId } = auth();
-    const { label, imgUrl } = await req.json();
+    const { name, price, sizeId, colorId, categoryId, images, isArchived, isFeatured} = await req.json();
 
     if (!userId) {
       return new NextResponse("UnAuthenticated request", { status: 401 });
     }
 
-    if (!label.length) {
-      return new NextResponse("Label name must be provided", { status: 400 });
+    if (!name) {
+      return new NextResponse("product name is required", { status: 400 });
     }
-    if (!imgUrl.length) {
-      return new NextResponse("Image URL must be provided", { status: 400 });
+    if (!price) {
+      return new NextResponse("product price is required", { status: 400 });
     }
+
+    if (!sizeId) {
+      return new NextResponse("product size ID is required", { status: 400 });
+    }
+    if (!colorId) {
+      return new NextResponse("product color ID is required", { status: 400 });
+    }
+
+    if (!categoryId) {
+      return new NextResponse("product category ID is required", { status: 400 });
+    }
+    if (!images || !images.length ) {
+      return new NextResponse("product images are required", { status: 400 });
+    }
+
 
     if (!params.storeId) {
       return new NextResponse("Store ID is requequired", { status: 400 });
@@ -64,25 +79,54 @@ export const PATCH = async (
       return new NextResponse("UnAuthorized request", { status: 403 });
     }
 
-    if (!params.billboardId) {
-      return new NextResponse("Billboard ID is requequired", { status: 400 });
+    if (!params.productId) {
+      return new NextResponse("Product ID is requequired", { status: 400 });
     }
 
-    const billboard = await prismadb.billboard.updateMany({
+    await prismadb.product.update({
       where: {
-        id: params.billboardId,
+        id: params.productId,
         storeId: params.storeId,
       },
       data: {
-        label,
-        imgUrl,
+        name,
+        price,
+        sizeId,
+        colorId,
+        categoryId,
+        isArchived,
+        isFeatured,
         storeId: params.storeId,
+        images: {
+          deleteMany: {},
+          // createMany: {
+          //   data: [
+          //     ...images.map((image: {url: string})=> image)
+          //   ]
+          // },
+        },
       },
     });
 
-    return new NextResponse(JSON.stringify(billboard), { status: 201 });
+    const product = await prismadb.product.update({
+      where: {
+        id: params.productId,
+        storeId: params.storeId,
+      },
+      data: {
+        images: {
+          createMany: {
+            data: [
+              ...images.map((image: {url: string})=> image)
+            ]
+          },
+        },
+      },
+    });
+
+    return new NextResponse(JSON.stringify(product), { status: 201 });
   } catch (error: any) {
-    console.log("[PATCH BILLBOARD ERROR]", error);
+    console.log("[PATCH PRODUCT ERROR]", error);
     return new NextResponse(error.message, { status: 500 });
   }
 };
