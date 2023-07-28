@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Heading from "@/components/uiComponents/Heading";
-import { billboard } from "@prisma/client";
+import { Product } from "@prisma/client";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,32 +12,35 @@ import AlertModal from "@/components/modals/AlertModal";
 import ImageUpload from "@/components/uiComponents/imageUpload";
 
 const formSchema = z.object({
-  label: z.string().min(2),
-  imgUrl: z.string().min(7),
+  name: z.string().min(1),
+  price: z.string().min(1),
+  category:z.string().min(1),
+  color: z.string().min(1),
+  size: z.string().min(1),
 });
 
-type BillBoardFormValues = z.infer<typeof formSchema>;
+type ProductFormValues = z.infer<typeof formSchema>;
 
 const ProductPageForm = ({
   initialData,
 }: {
-  initialData: billboard | null;
+  initialData: Product | null;
 }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const params = useParams();
 
-  const title = initialData ? "Edit your billBoard" : "create a billBoard";
+  const title = initialData ? "Edit your Product" : "create a Product";
   const description = initialData
-    ? "Edit your existing billBoard"
-    : "create new bill Board for your store";
+    ? "Edit your existing Product"
+    : "create new Product for your store";
   const toastmessageSuccess = initialData
-    ? "You have successfully Edited your bill Board"
-    : "You have successfully created a new billBoard";
+    ? "You have successfully Edited your Product"
+    : "You have successfully created a new Product";
   const toastmessageError = initialData
-    ? "Failed to edit your bill board"
-    : "Failed to create new bill board";
+    ? "Failed to edit your Product"
+    : "Failed to create new Product";
   const action = initialData ? "Save changes" : "Create";
 
   const {
@@ -46,28 +49,34 @@ const ProductPageForm = ({
     setValue,
     watch,
     formState: { errors },
-  } = useForm<BillBoardFormValues>({
+  } = useForm<ProductFormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData || { label: "", imgUrl: "" },
+    defaultValues: initialData || {
+      name: "",
+      price: "",
+      size: "",
+      color: "",
+      category: "",
+    } ,
   });
 
-  const onSubmit = async (data: BillBoardFormValues) => {
+  const onSubmit = async (data: ProductFormValues) => {
     try {
       setLoading(true);
       if (initialData) {
-        await fetch(`/api/${params.storeId}/billboards/${params.billboardId}`, {
+        await fetch(`/api/${params.storeId}/products/${params.productId}`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
       } else {
-        await fetch(`/api/${params.storeId}/billboards`, {
+        await fetch(`/api/${params.storeId}/products`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
       }
-      router.push(`/${params.storeId}/billboards/`);
+      router.push(`/${params.storeId}/products/`);
       router.refresh()
       toast.success(toastmessageSuccess);
     } catch (error: any) {
@@ -80,15 +89,15 @@ const ProductPageForm = ({
   const onDelete = async () => {
     try {
       setLoading(true);
-      await fetch(`/api/${params.storeId}/billboards/${params.billboardId}`, {
+      await fetch(`/api/${params.storeId}/products/${params.productId}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       });
-      router.push(`/${params.storeId}/billboards/`);
+      router.push(`/${params.storeId}/products/`);
       router.refresh()
-      toast.success("Successfully deleted the billboard");
+      toast.success("Successfully deleted the product");
     } catch (error: any) {
-      toast.error("Failed billboard, Make sure all categories uses this billboard has been deleted");
+      toast.error("Failed to delete product.");
     } finally {
       setLoading(false);
     }
@@ -102,7 +111,7 @@ const ProductPageForm = ({
         onConfirm={onDelete}
         loading={loading}
         title="Are you sure you?"
-        description="This action cannot be reverted. It will delete current Billboard"
+        description="This action cannot be reverted. It will delete current Product"
       />
       <div className="flex items-center justify-between">
         <Heading title={title} description={description} />
@@ -146,7 +155,7 @@ const ProductPageForm = ({
           />
           {errors?.imgUrl && (
             <p className="text-orange-300 " role="alert">
-              Bill Board image must be exist
+              Product image must be exist
             </p>
           )}
         </div>
@@ -161,7 +170,7 @@ const ProductPageForm = ({
           />
           {errors?.label && (
             <p className="text-orange-300 " role="alert">
-              Bill Board name must be at least 2 characters
+              Product name must be at least 2 characters
             </p>
           )}
         </div>
