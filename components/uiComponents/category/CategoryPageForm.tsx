@@ -1,7 +1,6 @@
 "use client";
 
-import { Listbox, Transition } from "@headlessui/react";
-import  { useState } from "react";
+import { useState } from "react";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -34,17 +33,11 @@ const CategoryPageForm = ({
   const {
     handleSubmit,
     register,
-    setValue,
     formState: { errors },
   } = useForm<CategoryFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || { name: "", billboardId: "" },
   });
-  const [selected, setSelected] = useState(billboards[0]);
-
-  const dowork = () => {
-    setValue("billboardId", selected.id);
-  };
 
   const title = initialData ? "Edit category" : "create new category";
   const description = initialData
@@ -75,7 +68,7 @@ const CategoryPageForm = ({
         });
       }
       router.push(`/${params.storeId}/categories/`);
-      router.refresh()
+      router.refresh();
       toast.success(toastmessageSuccess);
     } catch (error: any) {
       toast.error(toastmessageError);
@@ -92,7 +85,7 @@ const CategoryPageForm = ({
         headers: { "Content-Type": "application/json" },
       });
       router.push(`/${params.storeId}/categories/`);
-      router.refresh()
+      router.refresh();
       toast.success("Successfully deleted the Category");
     } catch (error: any) {
       toast.error(
@@ -103,21 +96,23 @@ const CategoryPageForm = ({
     }
   };
 
-  if(billboards.length<1) {
-    return (<AlertModal
-    isOpen={!open}
-    onClose={() => {
-      setOpen(false)
-      router.push(`/${params.storeId}/categories`)
-    }}
-    onConfirm={()=>{
-      setOpen(false)
-      router.push(`/${params.storeId}/billboards/new`)
-    }}
-    loading={loading}
-    title="Don't have any Billboards"
-    description="You have to create a billboard before you create a category."
-  />)
+  if (billboards.length < 1) {
+    return (
+      <AlertModal
+        isOpen={!open}
+        onClose={() => {
+          setOpen(false);
+          router.push(`/${params.storeId}/categories`);
+        }}
+        onConfirm={() => {
+          setOpen(false);
+          router.push(`/${params.storeId}/billboards/new`);
+        }}
+        loading={loading}
+        title="Don't have any Billboards"
+        description="You have to create a billboard before you create a category."
+      />
+    );
   }
 
   return (
@@ -162,63 +157,48 @@ const CategoryPageForm = ({
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col px-2 gap-6 py-4"
       >
-        <div className="flex flex-col gap-1">
-          <label htmlFor="backgroundImage">billboard ID</label>
-          <div className=" w-72">
-            <Listbox value={selected} onChange={setSelected}>
-              <div className="relative mt-1">
-                <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-                  <span className="block truncate">{selected?.label}</span>
-                </Listbox.Button>
-                <Transition
-                  as={"div"}
-                  leave="transition ease-in duration-100"
-                  leaveFrom="opacity-100"
-                  leaveTo="opacity-0"
+        <div className="flex gap-20">
+          <div className="flex flex-col gap-4 w-1/3">
+            <label htmlFor="category_id" className="">
+              Choose a billboard
+            </label>
+            <select
+              {...register("billboardId")}
+              className=" mb-6 py-2 text-md text-gray-900 border border-gray-300 rounded-lg outline-none"
+            >
+              {billboards.map((billboard: billboard) => (
+                <option
+                  key={billboard.id}
+                  className="relative cursor-default select-none py-4 pl-10 pr-4 $  hover:text-amber-900  text-gray-900"
+                  value={billboard.id}
                 >
-                  <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                    {billboards.map((billboard: billboard) => (
-                      <Listbox.Option
-                        key={billboard.id}
-                        onClick={dowork}
-                        className={({ active }) =>
-                          `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                            active
-                              ? "bg-amber-100 text-amber-900"
-                              : "text-gray-900"
-                          }`
-                        }
-                        value={billboard}
-                      >
-                        {billboard?.label}
-                      </Listbox.Option>
-                    ))}
-                  </Listbox.Options>
-                </Transition>
-              </div>
-            </Listbox>
+                  {billboard?.label}
+                </option>
+              ))}
+            </select>
+            {errors?.name && (
+              <p className="text-orange-300 " role="alert">
+                Product name must be at least 2 characters
+              </p>
+            )}
           </div>
-          {errors?.billboardId && (
-            <p className="text-orange-300 " role="alert">
-              Billboard ID must be exist
-            </p>
-          )}
+
+          <div className="flex flex-col gap-1">
+            <label htmlFor="backgroundImage">Label</label>
+            <input
+              disabled={loading}
+              {...register("name")}
+              defaultValue={initialData?.name}
+              className="border p-2 text-lg rounded-md outline-none w-4/12 md:w-96 "
+            />
+            {errors?.name && (
+              <p className="text-orange-300 " role="alert">
+                category name must be at least 2 characters
+              </p>
+            )}
+          </div>
         </div>
 
-        <div className="flex flex-col gap-1">
-          <label htmlFor="backgroundImage">Label</label>
-          <input
-            disabled={loading}
-            {...register("name")}
-            defaultValue={initialData?.name}
-            className="border p-2 text-lg rounded-md outline-none w-4/12 md:w-96 "
-          />
-          {errors?.name && (
-            <p className="text-orange-300 " role="alert">
-              category name must be at least 2 characters
-            </p>
-          )}
-        </div>
         <div className="flex items-center gap-5 text-lg">
           <button
             disabled={loading}

@@ -160,7 +160,7 @@ const ProductPageForm = ({ initialData }: { initialData: any }) => {
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col px-2 gap-6 py-4"
       >
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-8">
           <label htmlFor="backgroundImage">Product Image</label>
           <ImageUpload
             value={watch("images").map((image) => image.url)}
