@@ -4,21 +4,28 @@ import { NextResponse } from "next/server";
 
 export const GET = async (
   req: Request,
-  { params }: { params: { billboardId: string } }
+  { params }: { params: { productId: string } }
 ) => {
   try {
-    if (!params.billboardId) {
+    if (!params.productId) {
       return new NextResponse("Billboard ID is requequired", { status: 400 });
     }
 
-    const billboard = await prismadb.billboard.findFirst({
+    const product = await prismadb.product.findFirst({
       where: {
-        id: params.billboardId,
+        id: params.productId,
       },
+      include: {
+        images: true,
+        color: true,
+        category: true,
+        size: true,
+      },
+
     });
-    return new NextResponse(JSON.stringify(billboard), { status: 201 });
+    return new NextResponse(JSON.stringify(product), { status: 201 });
   } catch (error: any) {
-    console.log("[GET BILLBOARD ERROR]", error);
+    console.log("[GET PRODUCT ERROR]", error);
     return new NextResponse(error.message, { status: 500 });
   }
 };
