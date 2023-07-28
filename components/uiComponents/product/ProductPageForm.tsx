@@ -14,10 +14,10 @@ import ImageUpload from "@/components/uiComponents/imageUpload";
 const formSchema = z.object({
   name: z.string().min(1),
   price: z.coerce.number().min(1),
-  categoryId:z.string().min(1),
+  categoryId: z.string().min(1),
   colorId: z.string().min(1),
   sizeId: z.string().min(1),
-  images: z.object({url: z.string()}).array(),
+  images: z.object({ url: z.string() }).array(),
   isFeatured: z.boolean().default(true).optional(),
   isArchived: z.boolean().default(false).optional(),
 });
@@ -25,16 +25,14 @@ const formSchema = z.object({
 type ProductFormValues = z.infer<typeof formSchema>;
 
 interface ProductFormProps {
-  initialData: Product & {
-    images: Image[],
-  } | null;
+  initialData:
+    | (Product & {
+        images: Image[];
+      })
+    | null;
 }
- 
-const ProductPageForm = ({
-  initialData,
-}: {
-  initialData: any,
-}) => {
+
+const ProductPageForm = ({ initialData }: { initialData: any }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -60,19 +58,21 @@ const ProductPageForm = ({
     formState: { errors },
   } = useForm<ProductFormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData ? {
-      ...initialData,
-      price: 0,
-    } : {
-      name: "",
-      price: 0,
-      sizeId: "",
-      colorId: "",
-      categoryId: "",
-      images: [],
-      isArchived: false,
-      isFeatured: true,
-    } ,
+    defaultValues: initialData
+      ? {
+          ...initialData,
+          price: 0,
+        }
+      : {
+          name: "",
+          price: 0,
+          sizeId: "",
+          colorId: "",
+          categoryId: "",
+          images: [],
+          isArchived: false,
+          isFeatured: true,
+        },
   });
 
   const onSubmit = async (data: ProductFormValues) => {
@@ -92,7 +92,7 @@ const ProductPageForm = ({
         });
       }
       router.push(`/${params.storeId}/products/`);
-      router.refresh()
+      router.refresh();
       toast.success(toastmessageSuccess);
     } catch (error: any) {
       toast.error(toastmessageError);
@@ -109,7 +109,7 @@ const ProductPageForm = ({
         headers: { "Content-Type": "application/json" },
       });
       router.push(`/${params.storeId}/products/`);
-      router.refresh()
+      router.refresh();
       toast.success("Successfully deleted the product");
     } catch (error: any) {
       toast.error("Failed to delete product.");
@@ -161,12 +161,19 @@ const ProductPageForm = ({
         className="flex flex-col px-2 gap-6 py-4"
       >
         <div className="flex flex-col gap-1">
-          <label htmlFor="backgroundImage">Backgound Image</label>
+          <label htmlFor="backgroundImage">Product Image</label>
           <ImageUpload
-            value={watch("images").map((image) =>image.url)}
+            value={watch("images").map((image) => image.url)}
             disabled={loading}
-            onChange={(url) => setValue("images", [...watch("images"), {url}])}
-            onRemove={(url) => setValue("images", watch("images").filter((image) =>image.url !== url))}
+            onChange={(url) =>
+              setValue("images", [...watch("images"), { url }])
+            }
+            onRemove={(url) =>
+              setValue(
+                "images",
+                watch("images").filter((image) => image.url !== url)
+              )
+            }
           />
           {errors?.images && (
             <p className="text-orange-300 " role="alert">
@@ -175,20 +182,63 @@ const ProductPageForm = ({
           )}
         </div>
 
-        <div className="flex flex-col gap-1">
-          <label htmlFor="backgroundImage">Label</label>
-          <input
-            disabled={loading}
-            {...register("name")}
-            defaultValue={initialData?.name}
-            className="border p-2 text-lg rounded-md outline-none w-72 md:w-96 "
-          />
-          {errors?.name && (
-            <p className="text-orange-300 " role="alert">
-              Product name must be at least 2 characters
-            </p>
-          )}
+        <div className="flex gap-7">
+          <div className="flex flex-col gap-1">
+            <label htmlFor="backgroundImage">Name</label>
+            <input
+              disabled={loading}
+              {...register("name")}
+              placeholder="product name"
+              defaultValue={initialData?.name}
+              className="border p-2 text-lg rounded-md outline-none w-72 md:w-96 "
+            />
+            {errors?.name && (
+              <p className="text-orange-300 " role="alert">
+                Product name must be at least 2 characters
+              </p>
+            )}
+          </div>
+
+          <div className="flex flex-col gap-1 w-72 ">
+            <label
+              htmlFor="category_id"
+              className=""
+            >
+              Choose a category
+            </label>
+            <select className=" mb-6 py-2 text-md text-gray-900 border border-gray-300 rounded-lg outline-none">
+              <option value="US">United States</option>
+              <option value="CA">Canada</option>
+              <option value="FR">France</option>
+              <option value="DE">Germany</option>
+            </select>
+            {errors?.name && (
+              <p className="text-orange-300 " role="alert">
+                Product name must be at least 2 characters
+              </p>
+            )}
+          </div>
+
+          <div className="flex flex-col gap-1 w-72 ">
+            <label
+              htmlFor="size_id" >
+              Choose Size
+            </label>
+            <select className=" mb-6 py-2 text-md text-gray-900 border border-gray-300 rounded-lg outline-none">
+              <option value="US">United States</option>
+              <option value="CA">Canada</option>
+              <option value="FR">France</option>
+              <option value="DE">Germany</option>
+            </select>
+            {errors?.name && (
+              <p className="text-orange-300 " role="alert">
+                Product name must be at least 2 characters
+              </p>
+            )}
+          </div>
+
         </div>
+
         <div className="flex items-center gap-5 text-lg">
           <button
             disabled={loading}

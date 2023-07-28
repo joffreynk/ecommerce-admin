@@ -35,7 +35,6 @@ const CategoryPageForm = ({
     handleSubmit,
     register,
     setValue,
-    getValues,
     formState: { errors },
   } = useForm<CategoryFormValues>({
     resolver: zodResolver(formSchema),
