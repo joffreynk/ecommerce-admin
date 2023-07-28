@@ -26,14 +26,14 @@ type ProductFormValues = z.infer<typeof formSchema>;
 
 interface ProductFormProps {
   initialData: Product & {
-    imgaes: Image[],
+    images: Image[],
   } | null;
 }
  
 const ProductPageForm = ({
   initialData,
 }: {
-  initialData: ProductFormProps
+  initialData: any,
 }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -163,12 +163,12 @@ const ProductPageForm = ({
         <div className="flex flex-col gap-1">
           <label htmlFor="backgroundImage">Backgound Image</label>
           <ImageUpload
-            value={watch("imgUrl").length ? [watch("imgUrl")] : []}
+            value={watch("images").map((image) =>image.url)}
             disabled={loading}
-            onChange={(url) => setValue("imgUrl", url)}
-            onRemove={() => setValue("imgUrl", "")}
+            onChange={(url) => setValue("images", [...watch("images"), {url}])}
+            onRemove={(url) => setValue("images", watch("images").filter((image) =>image.url !== url))}
           />
-          {errors?.imgUrl && (
+          {errors?.images && (
             <p className="text-orange-300 " role="alert">
               Product image must be exist
             </p>
@@ -179,11 +179,11 @@ const ProductPageForm = ({
           <label htmlFor="backgroundImage">Label</label>
           <input
             disabled={loading}
-            {...register("label")}
-            defaultValue={initialData?.label}
+            {...register("name")}
+            defaultValue={initialData?.name}
             className="border p-2 text-lg rounded-md outline-none w-72 md:w-96 "
           />
-          {errors?.label && (
+          {errors?.name && (
             <p className="text-orange-300 " role="alert">
               Product name must be at least 2 characters
             </p>
