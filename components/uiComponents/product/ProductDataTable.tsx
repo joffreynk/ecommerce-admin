@@ -53,8 +53,8 @@ const ProductDataTable = ({headers, data}: {headers: ProductTableRowProps[], dat
                       <td className="whitespace-nowrap px-6 py-4">{item.category}</td>
                       <td className="whitespace-nowrap px-6 py-4">{item.size}</td>
                       <td className="whitespace-nowrap px-6 py-4">{item.color}</td>
-                      <td className="whitespace-nowrap px-6 py-4">{item.isFeatured}</td>
-                      <td className="whitespace-nowrap px-6 py-4">{item.isArchived}</td>
+                      <td className="whitespace-nowrap px-6 py-4">{item.isFeatured? "YES": "NO"}</td>
+                      <td className="whitespace-nowrap px-6 py-4">{item.isArchived? "YES": "NO"}</td>
                       <td className="whitespace-nowrap px-6 py-4">{item.createdAt}</td>
                       <td className="whitespace-nowrap px-6 py-4">
                         <button type="button" className="bg-slate-500 p-2 rounded-md text-lg text-white hover:bg-teal-600" onClick={() => router.push(`/${params.storeId}/products/${item.id}`)}>
