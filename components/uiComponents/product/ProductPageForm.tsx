@@ -256,7 +256,7 @@ const ProductPageForm = ({ initialData }: { initialData: any }) => {
 
           <div className="flex flex-col gap-1 w-72 ">
             <label htmlFor="category_id" className="">
-              Choose a category
+              Choose a product color
             </label>
             <select
               {...register("colorId")}
