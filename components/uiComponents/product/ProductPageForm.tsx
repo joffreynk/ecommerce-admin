@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Heading from "@/components/uiComponents/Heading";
-import { Image, Product } from "@prisma/client";
+import { Image, Product, category, color, size } from "@prisma/client";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -32,7 +32,7 @@ interface ProductFormProps {
     | null;
 }
 
-const ProductPageForm = ({ initialData }: { initialData: any }) => {
+const ProductPageForm = ({ initialData, colors, categories, sizes }: { initialData: any, colors: color[], categories: category[], sizes: size[] }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -207,10 +207,11 @@ const ProductPageForm = ({ initialData }: { initialData: any }) => {
               {...register("categoryId")}
               className=" mb-6 py-2 text-md text-gray-900 border border-gray-300 rounded-lg outline-none"
             >
-              <option value="US">United States</option>
-              <option value="CA">Canada</option>
-              <option value="FR">France</option>
-              <option value="DE">Germany</option>
+             {
+              categories.map((item) =>(
+                <option key={item.id} value={item.id}>{item.name}</option>
+              ))
+             }
             </select>
             {errors?.name && (
               <p className="text-orange-300 " role="alert">
@@ -225,10 +226,11 @@ const ProductPageForm = ({ initialData }: { initialData: any }) => {
               {...register("sizeId")}
               className=" mb-6 py-2 text-md text-gray-900 border border-gray-300 rounded-lg outline-none"
             >
-              <option value="US">United States</option>
-              <option value="CA">Canada</option>
-              <option value="FR">France</option>
-              <option value="DE">Germany</option>
+              {
+              sizes.map((item) =>(
+                <option key={item.id} value={item.id}>{item.name}</option>
+              ))
+             }
             </select>
             {errors?.name && (
               <p className="text-orange-300 " role="alert">
@@ -262,10 +264,11 @@ const ProductPageForm = ({ initialData }: { initialData: any }) => {
               {...register("colorId")}
               className="mb-6 py-2 text-md text-gray-900 border border-gray-300 rounded-lg outline-none"
             >
-              <option value="US">United States</option>
-              <option value="CA">Canada</option>
-              <option value="FR">France</option>
-              <option value="DE">Germany</option>
+             {
+              colors.map((item) =>(
+                <option key={item.id} value={item.id}>{item.name}</option>
+              ))
+             }
             </select>
             {errors?.name && (
               <p className="text-orange-300 " role="alert">
