@@ -22,6 +22,7 @@ export default async function Orders({params}: {params: {storeId: string}}) {
     id: item.id,
     phone: item.phone,
     address: item.address,
+    isPaid: item.isPaid,
     products: item.orderItems.map((orderItem: any)=>({name: orderItem.product.name, quantity: orderItem.quantity})),
     totalPrice: formatter.format(item.orderItems.reduce((total: any, item: any)=>(total+(Number(item.product.price)* Number(item.quantity))),0)),
     createdAt: format(item.createdAt, "MMM d, yyyy"),
