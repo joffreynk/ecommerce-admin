@@ -2,22 +2,23 @@ import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { BillBoard, billBoardTableRowProps } from "@/components/types/BillboardColumns";
+import { OrderTableRowProps, Order } from "@/components/types/OrdersColumns";
 
-const OrderDataTable = ({headers, billboards}: {headers: billBoardTableRowProps[], billboards:BillBoard[] }) => {
+const OrderDataTable = ({headers, data}: {headers: OrderTableRowProps[], data:Order[] }) => {
 
   const router = useRouter();
   const params = useParams();
   const [query, setQuery] = useState('')
 
-  const filteredItems =
-    query === ""
-      ? billboards
-      : billboards.filter((item: BillBoard) =>
-          item.label
-            .toLowerCase()
-            .replace(/\s+/g, "")
-            .includes(query.toLowerCase().replace(/\s+/g, ""))
-        );
+  const filteredItems = data
+    // query === ""
+    //   ? data
+    //   : data.filter((item: BillBoard) =>
+    //       item.name
+    //         .toLowerCase()
+    //         .replace(/\s+/g, "")
+    //         .includes(query.toLowerCase().replace(/\s+/g, ""))
+    //     );
 
   return (
     <div className="flex flex-col">
