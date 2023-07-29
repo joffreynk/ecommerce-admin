@@ -21,7 +21,7 @@ export default async function Products({params}: {params: {storeId: string}}) {
     id: item.id,
     name: item.name,
     isFeatured: item.isFeatured,
-    isArchived: item.isArachived,
+    isArchived: item.isArchived,
     price: formatter.format(item.price),
     category: item.category.name,
     color: item.color.value,
