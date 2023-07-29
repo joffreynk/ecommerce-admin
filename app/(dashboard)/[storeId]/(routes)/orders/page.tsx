@@ -1,4 +1,4 @@
-import BillBoardClient from "@/components/uiComponents/billboard/billBoardClient";
+import OrderClient from "@/components/uiComponents/order/OrderClient";
 import { formatter } from "@/utils/currencyFormatter";
 import prismadb from "@/utils/prismadb";
 import { format } from "date-fns";
@@ -31,7 +31,7 @@ export default async function Orders({params}: {params: {storeId: string}}) {
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <BillBoardClient data={formattedOrders}  />
+        <OrderClient data={formattedOrders}  />
       </div>
     </div>
   );

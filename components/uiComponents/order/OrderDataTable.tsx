@@ -1,13 +1,9 @@
-import Image from "next/image";
-import { useParams, useRouter } from "next/navigation";
+'use client'
+
 import { useState } from "react";
-import { BillBoard, billBoardTableRowProps } from "@/components/types/BillboardColumns";
 import { OrderTableRowProps, Order } from "@/components/types/OrdersColumns";
 
 const OrderDataTable = ({headers, data}: {headers: OrderTableRowProps[], data:Order[] }) => {
-
-  const router = useRouter();
-  const params = useParams();
   const [query, setQuery] = useState('')
 
   const filteredItems = data
