@@ -6,7 +6,7 @@ export interface Order {
   products: {
     name: string;
     quantity: number;
-  };
+  }[];
   address: string;
   createdAt: string;
 }

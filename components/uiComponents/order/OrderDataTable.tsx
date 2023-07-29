@@ -44,21 +44,26 @@ const OrderDataTable = ({headers, data}: {headers: OrderTableRowProps[], data:Or
                 </thead>
                 <tbody>
                    {
-                    filteredItems.map((billbaord, i)=>(
-                      <tr key={billbaord.id} className="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
+                    filteredItems.map((item, i)=>(
+                      <tr key={item.id} className="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
                       <td className="whitespace-nowrap px-6 py-4 font-medium">
                       {i+1}
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4">{billbaord.label}</td>
-                      <td className="whitespace-nowrap px-6 py-4">
-                      <Image src={billbaord.imgUrl} width={150} height={150} alt="billbaord" />
-                      </td >
-                      <td className="whitespace-nowrap px-6 py-4">{billbaord.createdAt}</td>
-                      <td className="whitespace-nowrap px-6 py-4">
-                        <button type="button" className="bg-slate-500 p-2 rounded-md text-lg text-white hover:bg-teal-600" onClick={() => router.push(`/${params.storeId}/billboards/${billbaord.id}`)}>
-                          view More
-                        </button>
-                      </td>
+                      <td className="whitespace-nowrap px-6 py-4">{item.products.map((product: {
+                        name: string,
+                        quantity: number,
+                      })=>(
+                        <ul key={product.name}>
+                          <li>{product.name}</li>
+                          <li>{product.quantity}</li>
+                        </ul>
+                      ))}</td>
+                      <td className="whitespace-nowrap px-6 py-4">{item.totalPrice} </td >
+                      <td className="whitespace-nowrap px-6 py-4">{item.isPaid} </td >
+                      <td className="whitespace-nowrap px-6 py-4">{item.phone} </td >
+                      <td className="whitespace-nowrap px-6 py-4">{item.address} </td >
+                      <td className="whitespace-nowrap px-6 py-4">{item.createdAt}</td>
+                      
                     </tr>
                     ))
                    }
