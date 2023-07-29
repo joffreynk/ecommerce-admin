@@ -1,4 +1,4 @@
-export interface BillBoard {
+export interface Order {
   id: string;
   phone: string;
   totalPrice: string;
@@ -11,12 +11,12 @@ export interface BillBoard {
   createdAt: string;
 }
 
-export interface billBoardTableRowProps {
+export interface OrderTableRowProps {
   accessor: string;
   header: string;
 }
 
-export const billBoardTableRow = [
+export const OrderTableRow = [
   {
     accessor: "id",
     header: "#",
