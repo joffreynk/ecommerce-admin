@@ -23,7 +23,7 @@ export const OrderTableRow = [
   },
   {
     accessor: "name",
-    header: "Name",
+    header: "Order List",
   },
   {
     accessor: "totalPrice",

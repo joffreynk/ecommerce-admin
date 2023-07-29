@@ -49,9 +49,9 @@ const OrderDataTable = ({headers, data}: {headers: OrderTableRowProps[], data:Or
                         name: string,
                         quantity: number,
                       })=>(
-                        <ul key={product.name}>
-                          <li>{product.name}</li>
-                          <li>{product.quantity}</li>
+                        <ul key={product.name} className=" flex gap-1 items-center">
+                          <li>{product.name}</li> {" : "}
+                          <li >{product.quantity}</li>
                         </ul>
                       ))}</td>
                       <td className="whitespace-nowrap px-6 py-4">{item.totalPrice} </td >
