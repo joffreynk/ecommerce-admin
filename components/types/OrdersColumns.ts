@@ -44,9 +44,5 @@ export const OrderTableRow = [
   {
     accessor: "createdAt",
     header: "Created At",
-  },
-  {
-    accessor: "manage",
-    header: "Manage",
-  },
+  }
 ];
