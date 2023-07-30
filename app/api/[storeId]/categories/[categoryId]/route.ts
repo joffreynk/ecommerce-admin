@@ -15,6 +15,9 @@ export const GET = async (
       where: {
         id: params.categoryId,
       },
+      include: {
+        billboard: true,
+      },
     });
     return new NextResponse(JSON.stringify(category), { status: 201 });
   } catch (error: any) {
