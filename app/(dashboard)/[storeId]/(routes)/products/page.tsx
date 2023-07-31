@@ -25,6 +25,7 @@ export default async function Products({params}: {params: {storeId: string}}) {
     price: formatter.format(item.price),
     category: item.category.name,
     color: item.color.value,
+    colorName: item.color.name,
     size: item.size.name,
     createdAt: format(item.createdAt, "MMM dd, yyyy")
 

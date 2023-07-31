@@ -4,6 +4,7 @@ export interface ProductProps {
   price: string;
   category:string;
   color: string;
+  colorName: string;
   size: string;
   isArchived: boolean;
   isFeatured: boolean;
