@@ -1,6 +1,5 @@
 import prismadb from "@/utils/prismadb"
 import { auth } from "@clerk/nextjs"
-import { useParams } from "next/navigation"
 import { NextResponse } from "next/server"
 
 
