@@ -63,13 +63,18 @@ const ImageUpload = ({
           </div>
         ))}
       </div>
-      <CldUploadWidget onUpload={onUpload} uploadPreset="xogt2dhg">
+      <CldUploadWidget onUpload={onUpload} uploadPreset="ecommerce">
         {({ open }) => {
           const onClick = () => {
             open();
           };
           return (
-            <button type="button" onClick={onClick} disabled={disabled} className="flex items-center bg-slate-400 text-white gap-4 p-2 rounded-lg">
+            <button
+              type="button"
+              onClick={onClick}
+              disabled={disabled}
+              className="flex items-center bg-slate-400 text-white gap-4 p-2 rounded-lg"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
